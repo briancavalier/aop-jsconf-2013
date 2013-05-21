@@ -30,7 +30,10 @@ function before(f, advice) {
  */
 function afterReturning(f, advice) {
 	return function() {
-		return advice.call(this, f.apply(this, arguments));
+		var result = f.apply(this, arguments);
+		advice.call(this, result);
+
+		return result;
 	};
 }
 
@@ -45,7 +48,8 @@ function afterThrowing(f, advice) {
 		try {
 			return f.apply(this, arguments);
 		} catch(e) {
-			return advice.call(this, e);
+			advice.call(this, e);
+			throw e;
 		}
 	};
 }
@@ -58,14 +62,20 @@ function afterThrowing(f, advice) {
  */
 function after(f, advice) {
 	return function() {
-		var result;
+		var result, threw;
 		try {
 			result = f.apply(this, arguments);
 		} catch(e) {
+			threw = true;
 			result = e;
 		}
 
-		return advice.call(this, result);
+		advice.call(this, result);
+		if(threw) {
+			throw result;
+		} else {
+			return result;
+		}
 	};
 }
 

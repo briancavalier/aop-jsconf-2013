@@ -102,26 +102,26 @@ buster.testCase('aop-simple', {
 		},
 
 		'should preserve advice thisArg': function() {
-			aop.afterThrowing(this.stub().throws(other), assertThisIsSentinel).call(sentinel);
+			assert.exception(function() {
+				aop.afterThrowing(this.stub().throws(other), assertThisIsSentinel).call(sentinel);
+			});
 		},
 
 		'should call advice once, after target throws, with thrown exception': function() {
-			var target, advice, advised, result;
+			var target, advice, advised;
 
-			target = this.stub().throws(other);
-			advice = this.stub().returns(sentinel);
+			target = this.stub().throws(sentinel);
+			advice = this.stub().returns(other);
 
 			advised = aop.afterThrowing(target, advice);
 
-			result = advised(123);
+			assertSameException(advised.bind(null, 123), sentinel);
 
 			assert.callOrder(target, advice);
 			assert.calledOnceWith(target, 123);
 			assert.calledOnce(advice);
 
-			assert.same(result, sentinel);
-
-			assert.same(advice.getCall(0).args[0], other);
+			assert.same(advice.getCall(0).args[0], sentinel);
 		},
 
 		'should not call advice if target returns': function() {
@@ -169,22 +169,20 @@ buster.testCase('aop-simple', {
 		},
 
 		'should call advice once, after target throws, with thrown exception': function() {
-			var target, advice, advised, result;
+			var target, advice, advised;
 
-			target = this.stub().throws(other);
-			advice = this.stub().returns(sentinel);
+			target = this.stub().throws(sentinel);
+			advice = this.stub().returns(other);
 
-			advised = aop.afterThrowing(target, advice);
+			advised = aop.after(target, advice);
 
-			result = advised(123);
+			assertSameException(advised.bind(null, 123), sentinel);
 
 			assert.callOrder(target, advice);
 			assert.calledOnceWith(target, 123);
 			assert.calledOnce(advice);
 
-			assert.same(result, sentinel);
-
-			assert.same(advice.getCall(0).args[0], other);
+			assert.same(advice.getCall(0).args[0], sentinel);
 		}
 
 	},
