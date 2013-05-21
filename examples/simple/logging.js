@@ -108,8 +108,8 @@ try {
 // Notice that the advice was able to OBSERVE the exception, but
 // not PREVENT it.  This can be very useful, as in the case of logging,
 // but can also be limiting.  For such cases, there is "around" advice
-// which can change the outcome of a function call.  We'll see that
-// later.
+// which can change the outcome of a function call or even prevent
+// the function from being executed at all.  We'll see that later.
 
 //-------------------------------------------------------------
 section([
