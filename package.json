@@ -3,10 +3,11 @@
 	"version": "0.1.0",
 	"description": "JSConf 2013: Connecting your shiz.js with AOP",
 	"keywords": ["jsconf", "aop", "aspect oriented programming"],
-	"dependencies": {
-		"buster": "~0.6"
+	"devDependencies": {
+		"buster": "~0.6",
+		"jshint": "~2"
 	},
 	"scripts": {
-		"test": "buster test -e node"
+		"test": "jshint . && buster test -e node"
 	}
 }
