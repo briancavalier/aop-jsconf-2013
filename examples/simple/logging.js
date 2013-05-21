@@ -1,28 +1,17 @@
-var aop, thing, result, slice, origDoStuff;
+var aop, section, Thing, thing, result, slice, origDoStuff;
 
-aop = require('../../src/aop-simple');
+section = require('../lib/format').section;
 slice = Function.prototype.call.bind([].slice);
 
-// Output helper
-function section(description) {
-	console.log('\n=======================================================');
-	console.log(description.join('\n'));
-	console.log('.......................................................');
-}
+//-------------------------------------------------------------
+// Our simple AOP library
+
+aop = require('../../src/aop-simple');
 
 //-------------------------------------------------------------
-// A Thing we'll use in all the examples
+// A Thing constructor we'll use in all the examples
 
-function Thing() {}
-
-Thing.prototype = {
-	doStuff: function(x) {
-		if(x < 0) {
-			throw new Error('dont\'t be so negative');
-		}
-		return x + 1;
-	}
-};
+Thing = require('../lib/Thing');
 
 //-------------------------------------------------------------
 section([
@@ -82,21 +71,21 @@ try {
 
 //-------------------------------------------------------------
 section([
-	'Let\'s use AOP!',
-	'After we create thing, we can "advise" its doStuff method.',
-	'Then we can give out thing to clients as usual, and they can\'t',
-	'tell the difference--except that now thing.doStuff will always',
-	'log it\'s arguments',
+	'Almost as lame :/',
+	'Let\'s try AOP!  After we create thing, we can "advise" its doStuff',
+	'method. Then we can give out thing to clients as usual, and they',
+	'can\'t tell the difference--except that now thing.doStuff will',
+	'always log it\'s arguments',
 ]);
 
 thing.doStuff = aop.before(thing.doStuff, console.log.bind(console, 'called with'));
 result = thing.doStuff(1);
-// Hmmm, but we still need to log the return value
 console.log('returned', result);
 
 
 //-------------------------------------------------------------
 section([
+	'Cool, but we still need to log the return value',
 	'Never fear, AOP advices "stack" in sensible ways',
 	'Let\'s log the return value, too'
 ]);
@@ -198,7 +187,7 @@ thing.doStuff(1, 2, 3, 4);
 
 //-------------------------------------------------------------
 section([
-	'Or add additional constraints!'
+	'And add additional constraints!'
 ]);
 
 Thing.prototype.doStuff = origDoStuff;
