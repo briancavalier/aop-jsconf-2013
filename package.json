@@ -3,9 +3,41 @@
 	"version": "0.1.0",
 	"description": "JSConf 2013: Connecting your shiz.js with AOP",
 	"keywords": ["jsconf", "aop", "aspect oriented programming"],
+	"homepage": "http://cujojs.com",
+	"licenses": [
+			{
+					"type": "MIT",
+					"url": "http://www.opensource.org/licenses/mit-license.php"
+			}
+	],
+	"repositories": [
+			{
+					"type": "git",
+					"url": "https://github.com/briancavalier/aop-jsconf-2013"
+			}
+	],
+	"bugs": "https://github.com/briancavalier/aop-jsconf-2013/issues",
+	"maintainers": [
+			{
+					"name": "Brian Cavalier",
+					"web": "http://hovercraftstudios.com"
+			}
+	],
+	"contributors": [
+			{
+					"name": "Brian Cavalier",
+					"web": "http://hovercraftstudios.com"
+			}
+	],
+	"dependencies": {
+		"meld": "~1"
+	},
 	"devDependencies": {
 		"buster": "~0.6",
 		"jshint": "~2"
+	},
+	"directories": {
+		"test": "test"
 	},
 	"scripts": {
 		"test": "jshint . && buster test -e node"
