@@ -17,7 +17,7 @@ module.exports = {
  */
 function before(f, advice) {
 	return function() {
-		advice.apply(this, arguments); // ingore advice's return value
+		advice.apply(this, arguments); // ignore advice's return value
 		return f.apply(this, arguments);
 	};
 }
