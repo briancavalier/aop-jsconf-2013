@@ -1,1 +1,1 @@
-Slides and code for Connecting your shiz.js with AOP @ [JSConf 2013](http://2013.jsconf.us)
+Slides and code for [Connecting your shiz.js with AOP](http://2013.jsconf.us/schedule) @ [JSConf 2013](http://2013.jsconf.us)
