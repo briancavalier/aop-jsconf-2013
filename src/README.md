@@ -1,0 +1,1 @@
+This is a very simple (read: naive), but still useful AOP implementation.

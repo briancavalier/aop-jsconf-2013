@@ -9,6 +9,17 @@ refute = buster.refute;
 sentinel = {};
 other = {};
 
+function assertSameException(f, expected) {
+	assert.exception(function() {
+		try {
+			f();
+		} catch(e) {
+			assert.same(e, expected);
+			throw e;
+		}
+	});
+}
+
 buster.testCase('aop-simple', {
 	'before': {
 		'should call advice once, before target, with same args': function() {
@@ -58,14 +69,7 @@ buster.testCase('aop-simple', {
 
 			advised = aop.afterReturning(target, advice);
 
-			assert.exception(function() {
-				try {
-					advised(123);
-				} catch(e) {
-					assert.same(e, sentinel);
-					throw e;
-				}
-			});
+			assertSameException(advised.bind(null, 123), sentinel);
 
 			assert.calledOnceWith(target, 123);
 			refute.called(advice);
@@ -192,14 +196,7 @@ buster.testCase('aop-simple', {
 
 			advised = aop.around(target, advice);
 
-			assert.exception(function() {
-				try {
-					advised(other);
-				} catch(e) {
-					assert.same(e, sentinel);
-					throw e;
-				}
-			});
+			assertSameException(advised.bind(null, other), sentinel);
 		}
 
 	}
