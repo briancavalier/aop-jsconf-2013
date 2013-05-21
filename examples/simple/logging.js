@@ -3,13 +3,17 @@ var aop, thing, result, slice, origDoStuff;
 aop = require('../../src/aop-simple');
 slice = Function.prototype.call.bind([].slice);
 
-function separator() {
-	console.log('\n-------------------------------------------------------');
+// Output helper
+function section(description) {
+	console.log('\n=======================================================');
+	console.log(description.join('\n'));
+	console.log('.......................................................');
 }
 
-function Thing() {
+//-------------------------------------------------------------
+// A Thing we'll use in all the examples
 
-}
+function Thing() {}
 
 Thing.prototype = {
 	doStuff: function(x) {
@@ -20,30 +24,51 @@ Thing.prototype = {
 	}
 };
 
-//NO! We shouldn't have to modify the source code of Thing
-//just to monitor what it's doing for debugging purposes
-//Thing.prototype = {
-//	doStuff: function(x) {
-//		console.log('called with', arguments)
+//-------------------------------------------------------------
+section([
+	'What if we want to debug a Thing by logging it\'s parameters,',
+	'return value, and any exceptions that it throws?'
+]);
 
-//		var result;
-//		if(x < 0) {
-//			result = new Error('dont\'t be so negative');
-//			console.log('threw', result);
-//			throw result;
-//		}
+origDoStuff = Thing.prototype.doStuff;
 
-//		result = x + 1;
-//		console.log('result', result);
-//		return result;
-//	}
-//};
+Thing.prototype.doStuff = function(x) {
+	console.log('called with', slice(arguments));
 
-separator();
+	var result;
+	if(x < 0) {
+		result = new Error('dont\'t be so negative');
+		console.log('threw', result);
+		throw result;
+	}
+
+	result = x + 1;
+	console.log('result', result);
+	return result;
+};
+
+thing = new Thing();
+
+thing.doStuff(1);
+
+try {
+	result = thing.doStuff(-1);
+} catch(e) {}
+
+thing.doStuff(1, 2, 3, 4);
 
 //-------------------------------------------------------------
-// We could do it manually at the point of call, but then we
-// have to do it EVERYWHERE we call thing.doStuff
+// Ok, that was lame, let's start over and try again
+
+Thing.prototype.doStuff = origDoStuff;
+
+//-------------------------------------------------------------
+section([
+	'That works, but is LAME!',
+	'Why should we have to modify the SOURCE CODE of Thing to debug it??',
+	'We could also do it manually at the point of call, but then we',
+	'have to do it EVERYWHERE we call thing.doStuff'
+]);
 
 thing = new Thing();
 
@@ -55,41 +80,41 @@ try {
 	console.log('threw', e);
 }
 
-separator();
-
 //-------------------------------------------------------------
-// Let's use AOP!
-// After we create thing, we can "advise" it's doStuff method.
-// Then we can give out thing to clients as usual, and they can't
-// tell the difference--except that now thing.doStuff will always
-// log it's arguments
+section([
+	'Let\'s use AOP!',
+	'After we create thing, we can "advise" its doStuff method.',
+	'Then we can give out thing to clients as usual, and they can\'t',
+	'tell the difference--except that now thing.doStuff will always',
+	'log it\'s arguments',
+]);
 
 thing.doStuff = aop.before(thing.doStuff, console.log.bind(console, 'called with'));
 result = thing.doStuff(1);
 // Hmmm, but we still need to log the return value
 console.log('returned', result);
 
-separator();
 
 //-------------------------------------------------------------
-// Never fear, AOP advices "stack" in sensible ways
-// Let's log the return value, too
+section([
+	'Never fear, AOP advices "stack" in sensible ways',
+	'Let\'s log the return value, too'
+]);
 
 thing.doStuff = aop.afterReturning(thing.doStuff, console.log.bind(console, 'returned'));
 result = thing.doStuff(1);
 
-separator();
 
 //-------------------------------------------------------------
-// But what about exceptions?
-// We can use afterThrowing advice to log those, as well.
+section([
+	'But what about exceptions?',
+	'We can use afterThrowing advice to log those, as well.'
+]);
 
 thing.doStuff = aop.afterThrowing(thing.doStuff, console.log.bind(console, 'threw'));
 try {
 	result = thing.doStuff(-1);
 } catch(e) { /* let's just keep node from crashing, shall we? */}
-
-separator();
 
 // Notice that the advice was able to OBSERVE the exception, but
 // not PREVENT it.  This can be very useful, as in the case of logging,
@@ -98,8 +123,10 @@ separator();
 // later.
 
 //-------------------------------------------------------------
-// We can wrap this up in an "aspect" -- a complex "behavior"
-// that we can add to any function
+section([
+	'We can wrap this up in an "aspect" -- a complex "behavior"',
+	'that we can add to any function'
+]);
 
 function addLogging(target) {
 	return aop.afterThrowing(
@@ -122,11 +149,11 @@ try {
 
 thing.doStuff(1, 2, 3, 4);
 
-separator();
-
 //-------------------------------------------------------------
-// What if we want to log All The Things?
-// We can advise Thing.prototype
+section([
+	'What if we want to log All The Things?',
+	'We can advise Thing.prototype'
+]);
 
 Thing.prototype.doStuff = addLogging(Thing.prototype.doStuff);
 
@@ -140,10 +167,11 @@ try {
 
 thing.doStuff(1, 2, 3, 4);
 
-separator();
-
 //-------------------------------------------------------------
-// We can even represent constraints as advice
+section([
+	'We can even represent constraints as advice'
+]);
+
 
 origDoStuff = Thing.prototype.doStuff = function(x) {
 	return x + 1;
@@ -168,10 +196,10 @@ try {
 
 thing.doStuff(1, 2, 3, 4);
 
-separator();
-
 //-------------------------------------------------------------
-// Or add additional constraints!
+section([
+	'Or add additional constraints!'
+]);
 
 Thing.prototype.doStuff = origDoStuff;
 
