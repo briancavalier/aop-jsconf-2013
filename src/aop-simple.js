@@ -82,9 +82,9 @@ function after(f, advice) {
 /**
  * Call advice "around" f: passes f and f's arguments to advice, which
  * can then do some work, call f, then do more work .. thus "around".
- * @param  {[type]} f      [description]
- * @param  {[type]} advice [description]
- * @return {[type]}        [description]
+ * @param  {function} f function to advise
+ * @param  {function} advice function to call "around" f
+ * @return {function} advised function that will call advice "around" f
  */
 function around(f, advice) {
 	return function() {
