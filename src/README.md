@@ -12,4 +12,5 @@ There are things this implementation doesn't do well or doesn't account for:
 1. It creates deep stacks for all advice types.  meld.js uses trampolines to execute all advice types except `around`, so stacks stay shallow.
 2. There is no explicit way to "remove" advice.  You can simply throw away the advised function and start using the original again to "remove".  meld.js provides an API for removing advices, even in a different order than they were added, i.e. you can "yank" an advice, even around advice, out of the middle of an advice chain, leaving all others intact.
 3. There is no codified notion of a *joinpoint*, and thus no way to do more sophisticated things that may require access to a joinpoint.  meld.js provides a joinpoint, and an API for accessing the current joinpoint from within any advice.
-4. It doesn't handle advising constructors.  meld.js can advice constructors, correctly preserving prototypes and `instanceof`
+4. It doesn't handle advising constructors.  meld.js can advice constructors, correctly preserving prototypes and `instanceof`.
+5. It doesn't attempt to provide pointcut-based (query-based) advising--it simply advises functions.  meld.js supports Array, RegExp, and function pointcut queries to query an object and advise all matching methods in a single call.
