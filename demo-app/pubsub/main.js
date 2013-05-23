@@ -1,4 +1,4 @@
-define(['model/Products', './Controller', './productListView/ProductListView', './cartView/CartView', 'text!data/products.json'], function(Products, Controller, ProductListView, CartView, products) {
+define(['model/Products', './Controller', './ProductListView', './CartView', 'text!data/products.json'], function(Products, Controller, ProductListView, CartView, products) {
 
 	var model, controller, productListView, cartView;
 

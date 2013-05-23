@@ -1,5 +1,5 @@
 (function(define) {
-define(['text!./template.html', 'dom/render', 'dom/addClassWhile'], function(template, render, addClassWhile) {
+define(['text!template/cartView.html', 'dom/render', 'dom/addClassWhile'], function(template, render, addClassWhile) {
 
 	function CartView(node) {
 		this.node = node;

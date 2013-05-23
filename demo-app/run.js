@@ -12,7 +12,8 @@
 				config: { moduleLoader: 'curl/loader/cjsm11' }},
 			model: { location: 'common/model' },
 			dom:   { location: 'common/dom' },
-			data:  { location: 'common/data' }
+			data:  { location: 'common/data' },
+			template:  { location: 'common/template' }
 		}
 	});
 
