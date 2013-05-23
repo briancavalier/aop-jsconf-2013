@@ -1,0 +1,33 @@
+.product-container {
+    float: left;
+    width: 60%;
+    max-width: 600px;
+}
+
+.cart-container {
+    float: left;
+    font-size: .8em;
+    width: 40%;
+    max-width: 400px;
+}
+
+.product-list-view, .cart-view {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.product-list-item {
+    width: 200px;
+    vertical-align: top;
+}
+
+.product-list-item span {
+    display: block;
+}
+
+.product-list-item {
+    margin: 1em;
+    display: inline-block;
+}
+
