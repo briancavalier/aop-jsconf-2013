@@ -7,8 +7,8 @@ define(['model/Products', './Controller', './ProductListView', './CartView', 'te
 	productListView = new ProductListView(document.getElementById('product-list'));
 	cartView = new CartView(document.getElementById('cart'));
 
-	controller.init(products);
-	cartView.init();
+	controller.init(productListView, cartView);
+	cartView.init(controller);
 	productListView.init(products);
 
 	window.addEventListener('beforeunload', function() {

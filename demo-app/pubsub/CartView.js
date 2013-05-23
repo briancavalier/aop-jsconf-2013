@@ -31,11 +31,10 @@ define(['text!template/cartView.html', 'dom/render', 'dom/addClassWhile', './pub
 				subscriptions.forEach(function(unsubscribe) {
 					unsubscribe();
 				});
-			}
-
+			};
 
 			function handleRemoveClick(e) {
-				var itemNode, id, promise;
+				var itemNode, id;
 				if(e.target.className === 'remove') {
 					itemNode = findItemNode(e.target);
 					if(itemNode) {
@@ -46,7 +45,6 @@ define(['text!template/cartView.html', 'dom/render', 'dom/addClassWhile', './pub
 					}
 				}
 			}
-
 		},
 
 		addItem: function(item) {
@@ -61,7 +59,7 @@ define(['text!template/cartView.html', 'dom/render', 'dom/addClassWhile', './pub
 		},
 
 		destroy: function() {}
-	}
+	};
 
 	return CartView;
 

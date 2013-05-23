@@ -11,18 +11,21 @@ define(function() {
 		subscribe: subscribe
 	};
 
-	function subscribe(topic, f) {
+	function subscribe(topic, handler) {
 		var handlers = topics[topic];
 		if(!handlers) {
 			handlers = topics[topic] = [];
 		}
 
-		handlers.push(f);
+		handlers.push(handler);
 
 		return function() {
-			var index = handlers.indexOf(f);
+			var index = handlers.indexOf(handler);
 			if(index > -1) {
 				handlers.splice(index, 1);
+				if(handlers.length === 0) {
+					delete topics[topic];
+				}
 			}
 		};
 	}

@@ -45,7 +45,7 @@ define(['text!template/cartView.html', 'dom/render', 'dom/addClassWhile'], funct
 		},
 
 		destroy: function() {}
-	}
+	};
 
 	return CartView;
 

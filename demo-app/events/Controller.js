@@ -1,21 +1,23 @@
 (function(define) {
 define(function(require) {
 
-	var when, delay, pubsub;
+	var when, delay, makeEvented;
 
 	when = require('when');
 	delay = require('when/delay');
-	pubsub = require('./pubsub');
+	makeEvented = require('./makeEvented');
 
-	function Controller() {}
+	function Controller() {
+		makeEvented(this);
+	}
 
 	Controller.prototype = {
-		init: function() {
+		init: function(productView, cartView) {
 			var subscriptions = [];
 
-			subscriptions.push(pubsub.subscribe('product/add',
+			subscriptions.push(productView.on('add',
 				this.addItemToCart.bind(this)));
-			subscriptions.push(pubsub.subscribe('cart/remove',
+			subscriptions.push(cartView.on('remove',
 				this.removeItemFromCart.bind(this)));
 		},
 
@@ -24,8 +26,9 @@ define(function(require) {
 				return when.reject(new Error('No such item'));
 			}
 
-			return delay(1000).otherwise(
-				pubsub.publish.bind(pubsub, 'cart/add/error', item));
+			return delay(1000, item)
+				.then(this.emit.bind(this, 'add'))
+				.otherwise(this.emit.bind(this, 'add/error', item));
 		},
 
 		removeItemFromCart: function(id) {

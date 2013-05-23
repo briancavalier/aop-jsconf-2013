@@ -1,15 +1,15 @@
-define(['model/Products', './Controller', './ProductListView', './CartView', 'text!data/products.json'], function(Products, Controller, ProductListView, CartView, products) {
+define(['model/Products', './Controller', './ProductListView', './CartView', 'text!data/products.json'], function(Products, Controller, ProductListView, CartView, productData) {
 
-	var model, controller, productListView, cartView;
+	var products, controller, productListView, cartView;
 
-	model = new Products(JSON.parse(products));
+	products = new Products(JSON.parse(productData));
 	controller = new Controller();
 	productListView = new ProductListView(document.getElementById('product-list'));
 	cartView = new CartView(document.getElementById('cart'));
 
 	controller.init(cartView);
 	cartView.init(controller);
-	productListView.init(model, controller);
+	productListView.init(products, controller);
 
 	window.addEventListener('beforeunload', function() {
 		cartView.destroy();

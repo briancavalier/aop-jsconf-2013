@@ -1,12 +1,16 @@
-define(['text!template/productListView.html', 'dom/renderList', 'dom/addClassWhile', './pubsub'], function(template, renderList, addClassWhile, pubsub) {
+define(['text!template/productListView.html', 'dom/renderList', 'dom/addClassWhile', './makeEvented'], function(template, renderList, addClassWhile, makeEvented) {
 
 	function ProductListView(node) {
+		makeEvented(this);
 		this.node = node;
 	}
 
 	ProductListView.prototype = {
 		init: function(products) {
-			var node = this.node;
+			var node, self;
+
+			node = this.node;
+			self = this;
 
 			node.addEventListener('click', handleAddClick);
 
@@ -23,13 +27,13 @@ define(['text!template/productListView.html', 'dom/renderList', 'dom/addClassWhi
 					itemNode = findItemNode(e.target);
 					id = itemNode.getAttribute('data-item-id');
 
-					pubsub.publish('product/add', products.find(id));
+					self.emit('add', products.find(id));
 				}
 			}
 		},
 
 		destroy: function() {}
-	}
+	};
 
 	return ProductListView;
 
