@@ -19,7 +19,7 @@ define(function(require) {
 
 		addItemToCart: function(item) {
 			if(!item) {
-				return when.reject(new Error('No such item: ' + item.id));
+				return when.reject(new Error('No such item'));
 			}
 
 			return delay(1000).otherwise(function(e) {

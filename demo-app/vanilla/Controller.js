@@ -15,7 +15,7 @@ define(function(require) {
 
 		addItemToCart: function(item) {
 			if(!item) {
-				return when.reject(new Error('No such item: ' + id));
+				return when.reject(new Error('No such item'));
 			}
 
 			return delay(1000, [this.cartView, item])
