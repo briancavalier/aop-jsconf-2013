@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "dependencies": {
     "curl": "~0.7",
-    "when": "~2",
+    "when": "~2.1",
 	"meld": "~1"
   }
 }

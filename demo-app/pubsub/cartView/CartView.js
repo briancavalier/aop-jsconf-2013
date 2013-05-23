@@ -1,13 +1,15 @@
 (function(define) {
-define(['text!./template.html', 'dom/render', 'dom/addClassWhile'], function(template, render, addClassWhile) {
+define(['text!./template.html', 'dom/render', 'dom/addClassWhile', '../pubsub'], function(template, render, addClassWhile, pubsub) {
 
 	function CartView(node) {
 		this.node = node;
 	}
 
 	CartView.prototype = {
-		init: function(controller) {
-			var node = this.node;
+		init: function() {
+			var node, subscriptions;
+
+			node = this.node;
 
 			node.innerHTML = template;
 			this.list = this.node.firstChild;
@@ -15,12 +17,22 @@ define(['text!./template.html', 'dom/render', 'dom/addClassWhile'], function(tem
 
 			this.list.innerHTML = '';
 
+			subscriptions = [];
+			subscriptions.push(pubsub.subscribe('product/add',
+				this.addItem.bind(this)));
+			subscriptions.push(pubsub.subscribe('cart/add/error',
+				this.removeItem.bind(this)));
+
 			node.addEventListener('click', handleRemoveClick);
 
 			this.destroy = function() {
 				node.removeEventListener('click', handleRemoveClick);
 				node.innerHTML = '';
+				subscriptions.forEach(function(unsubscribe) {
+					unsubscribe();
+				});
 			}
+
 
 			function handleRemoveClick(e) {
 				var itemNode, id, promise;
@@ -29,19 +41,23 @@ define(['text!./template.html', 'dom/render', 'dom/addClassWhile'], function(tem
 					if(itemNode) {
 						id = itemNode.getAttribute('data-item-id');
 
-						promise = controller.removeItemFromCart(id)
-							.then(function() {
-								itemNode.parentNode.removeChild(itemNode);
-							});
-
-						addClassWhile('removing', node, promise);
+						itemNode.parentNode.removeChild(itemNode);
+						pubsub.publish('cart/remove', id);
 					}
 				}
 			}
+
 		},
 
 		addItem: function(item) {
 			this.list.innerHTML += render(this.itemTemplate, item);
+		},
+
+		removeItem: function(item) {
+			var itemNode = this.node.querySelector('[data-item-id="' + item.id + '"]');
+			if(itemNode) {
+				itemNode.parentNode.removeChild(itemNode);
+			}
 		},
 
 		destroy: function() {}

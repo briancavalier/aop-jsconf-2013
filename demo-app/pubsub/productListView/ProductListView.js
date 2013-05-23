@@ -1,11 +1,11 @@
-define(['text!./template.html', 'dom/renderList', 'dom/addClassWhile'], function(template, renderList, addClassWhile) {
+define(['text!./template.html', 'dom/renderList', 'dom/addClassWhile', '../pubsub'], function(template, renderList, addClassWhile, pubsub) {
 
 	function ProductListView(node) {
 		this.node = node;
 	}
 
 	ProductListView.prototype = {
-		init: function(model, controller) {
+		init: function(model) {
 			var node = this.node;
 
 			node.addEventListener('click', handleAddClick);
@@ -23,8 +23,7 @@ define(['text!./template.html', 'dom/renderList', 'dom/addClassWhile'], function
 					itemNode = findItemNode(e.target);
 					id = itemNode.getAttribute('data-item-id');
 
-					addClassWhile('adding', node,
-						controller.addItemToCart(model.find(id)));
+					pubsub.publish('product/add', model.find(id));
 				}
 			}
 		},

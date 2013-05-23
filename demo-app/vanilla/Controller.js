@@ -9,14 +9,11 @@ define(function(require) {
 	function Controller() {}
 
 	Controller.prototype = {
-		init: function(model, cartView) {
-			this.model = model;
+		init: function(cartView) {
 			this.cartView = cartView;
 		},
 
-		addItemToCart: function(id) {
-			var item = this.model.find(id);
-
+		addItemToCart: function(item) {
 			if(!item) {
 				return when.reject(new Error('No such item: ' + id));
 			}
