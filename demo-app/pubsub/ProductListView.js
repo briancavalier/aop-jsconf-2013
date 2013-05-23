@@ -1,4 +1,4 @@
-define(['text!template/productListView.html', 'dom/renderList', 'dom/addClassWhile', './pubsub'], function(template, renderList, addClassWhile, pubsub) {
+define(['text!template/productListView.html', 'dom/renderList', './pubsub'], function(template, renderList, pubsub) {
 
 	function ProductListView(node) {
 		this.node = node;

@@ -8,7 +8,7 @@
 			curl:  { location: 'components/curl/src/curl' },
 			when:  { location: 'components/when', main: 'when' },
 			meld:  { location: 'components/meld', main: 'meld' },
-			'aop-simple': { location: '../src', main: 'aop-simple',
+			aop: { location: '../src', main: 'aop-simple',
 				config: { moduleLoader: 'curl/loader/cjsm11' }},
 			model: { location: 'common/model' },
 			dom:   { location: 'common/dom' },

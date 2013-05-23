@@ -13,7 +13,7 @@ define(['text!template/productListView.html', 'dom/renderList', 'dom/addClassWhi
 			this.destroy = function() {
 				node.removeEventListener('click', handleAddClick);
 				node.innerHTML = '';
-			}
+			};
 
 			this.node.innerHTML = renderList(template, products.list());
 
@@ -30,7 +30,7 @@ define(['text!template/productListView.html', 'dom/renderList', 'dom/addClassWhi
 		},
 
 		destroy: function() {}
-	}
+	};
 
 	return ProductListView;
 

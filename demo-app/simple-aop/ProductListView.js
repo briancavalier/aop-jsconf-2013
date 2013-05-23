@@ -1,16 +1,15 @@
-define(['text!template/productListView.html', 'dom/renderList', './makeEvented'], function(template, renderList, makeEvented) {
+define(['text!template/productListView.html', 'dom/renderList'], function(template, renderList) {
 
 	function ProductListView(node) {
-		makeEvented(this);
 		this.node = node;
 	}
 
 	ProductListView.prototype = {
 		init: function(products) {
-			var node, self;
+			var self, node;
 
-			node = this.node;
 			self = this;
+			node = this.node;
 
 			node.addEventListener('click', handleAddClick);
 
@@ -25,11 +24,16 @@ define(['text!template/productListView.html', 'dom/renderList', './makeEvented']
 				var itemNode, id;
 				if(e.target.className === 'add') {
 					itemNode = findItemNode(e.target);
-					id = itemNode.getAttribute('data-item-id');
-
-					self.emit('add', products.find(id));
+					if(itemNode) {
+						id = itemNode.getAttribute('data-item-id');
+						self.productAdded(products.find(id));
+					}
 				}
 			}
+		},
+
+		productAdded: function(item) {
+			return item;
 		},
 
 		destroy: function() {}

@@ -1,5 +1,5 @@
 (function(define) {
-define(['text!template/cartView.html', 'dom/render', './pubsub'], function(template, render, pubsub) {
+define(['text!template/cartView.html', 'dom/render'], function(template, render) {
 
 	function CartView(node) {
 		this.node = node;
@@ -7,8 +7,9 @@ define(['text!template/cartView.html', 'dom/render', './pubsub'], function(templ
 
 	CartView.prototype = {
 		init: function() {
-			var node, subscriptions;
+			var self, node;
 
+			self = this;
 			node = this.node;
 
 			node.innerHTML = template;
@@ -17,20 +18,11 @@ define(['text!template/cartView.html', 'dom/render', './pubsub'], function(templ
 
 			this.list.innerHTML = '';
 
-			subscriptions = [];
-			subscriptions.push(pubsub.subscribe('product/add',
-				this.addItem.bind(this)));
-			subscriptions.push(pubsub.subscribe('cart/add/error',
-				this.removeItem.bind(this)));
-
 			node.addEventListener('click', handleRemoveClick);
 
 			this.destroy = function() {
 				node.removeEventListener('click', handleRemoveClick);
 				node.innerHTML = '';
-				subscriptions.forEach(function(unsubscribe) {
-					unsubscribe();
-				});
 			};
 
 			function handleRemoveClick(e) {
@@ -39,9 +31,7 @@ define(['text!template/cartView.html', 'dom/render', './pubsub'], function(templ
 					itemNode = findItemNode(e.target);
 					if(itemNode) {
 						id = itemNode.getAttribute('data-item-id');
-
-						itemNode.parentNode.removeChild(itemNode);
-						pubsub.publish('cart/remove', id);
+						self.removeItemById(id);
 					}
 				}
 			}
@@ -52,7 +42,11 @@ define(['text!template/cartView.html', 'dom/render', './pubsub'], function(templ
 		},
 
 		removeItem: function(item) {
-			var itemNode = this.node.querySelector('[data-item-id="' + item.id + '"]');
+			return item && this.removeItemById(item.id);
+		},
+
+		removeItemById: function(id) {
+			var itemNode = this.node.querySelector('[data-item-id="' + id + '"]');
 			if(itemNode) {
 				itemNode.parentNode.removeChild(itemNode);
 			}
