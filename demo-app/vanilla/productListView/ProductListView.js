@@ -5,7 +5,7 @@ define(['text!./template.html', 'dom/renderList', 'dom/addClassWhile'], function
 	}
 
 	ProductListView.prototype = {
-		init: function(model, controller) {
+		init: function(products, controller) {
 			var node = this.node;
 
 			node.addEventListener('click', handleAddClick);
@@ -15,7 +15,7 @@ define(['text!./template.html', 'dom/renderList', 'dom/addClassWhile'], function
 				node.innerHTML = '';
 			}
 
-			this.node.innerHTML = renderList(template, model.list());
+			this.node.innerHTML = renderList(template, products.list());
 
 			function handleAddClick(e) {
 				var itemNode, id;
@@ -24,7 +24,7 @@ define(['text!./template.html', 'dom/renderList', 'dom/addClassWhile'], function
 					id = itemNode.getAttribute('data-item-id');
 
 					addClassWhile('adding', node,
-						controller.addItemToCart(model.find(id)));
+						controller.addItemToCart(products.find(id)));
 				}
 			}
 		},

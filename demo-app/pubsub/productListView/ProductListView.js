@@ -5,7 +5,7 @@ define(['text!./template.html', 'dom/renderList', 'dom/addClassWhile', '../pubsu
 	}
 
 	ProductListView.prototype = {
-		init: function(model) {
+		init: function(products) {
 			var node = this.node;
 
 			node.addEventListener('click', handleAddClick);
@@ -15,7 +15,7 @@ define(['text!./template.html', 'dom/renderList', 'dom/addClassWhile', '../pubsu
 				node.innerHTML = '';
 			}
 
-			this.node.innerHTML = renderList(template, model.list());
+			this.node.innerHTML = renderList(template, products.list());
 
 			function handleAddClick(e) {
 				var itemNode, id;
@@ -23,7 +23,7 @@ define(['text!./template.html', 'dom/renderList', 'dom/addClassWhile', '../pubsu
 					itemNode = findItemNode(e.target);
 					id = itemNode.getAttribute('data-item-id');
 
-					pubsub.publish('product/add', model.find(id));
+					pubsub.publish('product/add', products.find(id));
 				}
 			}
 		},
