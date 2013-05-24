@@ -10,8 +10,10 @@ define(function(require) {
 	function Controller() {}
 
 	Controller.prototype = {
-		init: function() {
+		init: function(cart) {
 			var subscriptions = [];
+
+			this.cart = cart;
 
 			subscriptions.push(pubsub.subscribe('product/add',
 				this.addItemToCart.bind(this)));
@@ -24,12 +26,12 @@ define(function(require) {
 				return when.reject(new Error('No such item'));
 			}
 
-			return delay(1000).otherwise(
+			return this.cart.addItem(item).otherwise(
 				pubsub.publish.bind(pubsub, 'cart/add/error', item));
 		},
 
 		removeItemFromCart: function(id) {
-			return delay(1000);
+			return this.cart.removeItem(id);
 		}
 	};
 

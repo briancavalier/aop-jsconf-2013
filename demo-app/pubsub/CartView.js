@@ -11,11 +11,7 @@ define(['text!template/cartView.html', 'dom/render', './pubsub'], function(templ
 
 			node = this.node;
 
-			node.innerHTML = template;
-			this.list = this.node.firstChild;
-			this.itemTemplate = this.list.innerHTML;
-
-			this.list.innerHTML = '';
+			this._initDom(node);
 
 			subscriptions = [];
 			subscriptions.push(pubsub.subscribe('product/add',
@@ -45,6 +41,13 @@ define(['text!template/cartView.html', 'dom/render', './pubsub'], function(templ
 					}
 				}
 			}
+		},
+
+		_initDom: function(node) {
+			node.innerHTML = template;
+			this.list = this.node.firstChild;
+			this.itemTemplate = this.list.innerHTML;
+			this.list.innerHTML = '';
 		},
 
 		addItem: function(item) {

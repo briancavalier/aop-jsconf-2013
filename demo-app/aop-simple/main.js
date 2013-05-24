@@ -1,8 +1,18 @@
-define(['model/Products', './Controller', './ProductListView', './CartView', 'aop', 'text!data/products.json'], function(Products, Controller, ProductListView, CartView, aop, productData) {
+define(function(require) {
 
-	var products, controller, productListView, cartView;
+	var Products, Cart, Controller, ProductListView, CartView, aop, productData,
+		products, cart, controller, productListView, cartView,
 
-	products = new Products(JSON.parse(productData));
+	Products = require('model/Products');
+	Cart = require('model/Cart');
+	Controller = require('./Controller');
+	ProductListView = require('./ProductListView');
+	CartView = require('./CartView');
+	aop = require('aop');
+	productData = require('data/products');
+
+	products = new Products(productData);
+	cart = new Cart();
 	controller = new Controller();
 	productListView = new ProductListView(document.getElementById('product-list'));
 	cartView = new CartView(document.getElementById('cart'));
@@ -21,11 +31,7 @@ define(['model/Products', './Controller', './ProductListView', './CartView', 'ao
 		cartView.removeItemById,
 		controller.removeItemFromCart.bind(controller));
 
+	controller.init(cart);
 	cartView.init();
 	productListView.init(products);
-
-	window.addEventListener('beforeunload', function() {
-		cartView.destroy();
-		productListView.destroy();
-	});
 });

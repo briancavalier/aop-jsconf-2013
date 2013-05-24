@@ -9,11 +9,7 @@ define(['text!template/cartView.html', 'dom/render', 'dom/addClassWhile'], funct
 		init: function(controller) {
 			var node = this.node;
 
-			node.innerHTML = template;
-			this.list = this.node.firstChild;
-			this.itemTemplate = this.list.innerHTML;
-
-			this.list.innerHTML = '';
+			this._initDom(node);
 
 			node.addEventListener('click', handleRemoveClick);
 
@@ -38,6 +34,13 @@ define(['text!template/cartView.html', 'dom/render', 'dom/addClassWhile'], funct
 					}
 				}
 			}
+		},
+
+		_initDom: function(node) {
+			node.innerHTML = template;
+			this.list = this.node.firstChild;
+			this.itemTemplate = this.list.innerHTML;
+			this.list.innerHTML = '';
 		},
 
 		addItem: function(item) {

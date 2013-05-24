@@ -9,16 +9,20 @@ define(function(require) {
 	function Controller() {}
 
 	Controller.prototype = {
+		init: function(cart) {
+			this.cart = cart;
+		},
+
 		addItemToCart: function(item) {
 			if(!item) {
 				return when.reject(new Error('No such item'));
 			}
 
-			return delay(1000, item);
+			return this.cart.addItem(item);
 		},
 
 		removeItemFromCart: function(id) {
-			return delay(1000);
+			return this.cart.removeItem(id);
 		}
 	};
 

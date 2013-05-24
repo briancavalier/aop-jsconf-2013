@@ -12,7 +12,7 @@ define(function(require) {
 		return when(promise).ensure(function() {
 			node.className = '';
 		});
-	}
+	};
 
 });
 }(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));

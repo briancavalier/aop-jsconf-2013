@@ -12,8 +12,10 @@ define(function(require) {
 	}
 
 	Controller.prototype = {
-		init: function(productView, cartView) {
+		init: function(cart, productView, cartView) {
 			var subscriptions = [];
+
+			this.cart = cart;
 
 			subscriptions.push(productView.on('add',
 				this.addItemToCart.bind(this)));
@@ -26,13 +28,13 @@ define(function(require) {
 				return when.reject(new Error('No such item'));
 			}
 
-			return delay(1000, item)
+			return this.cart.addItem(item)
 				.then(this.emit.bind(this, 'add'))
 				.otherwise(this.emit.bind(this, 'add/error', item));
 		},
 
 		removeItemFromCart: function(id) {
-			return delay(1000);
+			return this.cart.removeItem(id);
 		}
 	};
 

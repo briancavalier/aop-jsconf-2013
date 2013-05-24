@@ -9,7 +9,8 @@ define(function(require) {
 	function Controller() {}
 
 	Controller.prototype = {
-		init: function(cartView) {
+		init: function(cart, cartView) {
+			this.cart = cart;
 			this.cartView = cartView;
 		},
 
@@ -18,14 +19,13 @@ define(function(require) {
 				return when.reject(new Error('No such item'));
 			}
 
-			return delay(1000, [this.cartView, item])
-				.spread(function(cartView, item) {
-					cartView.addItem(item)
-				});
+			var cartView = this.cartView;
+			return this.cart.addItem(item)
+				.then(cartView.addItem.bind(cartView));
 		},
 
 		removeItemFromCart: function(id) {
-			return delay(1000);
+			return this.cart.removeItem(id);
 		}
 	};
 

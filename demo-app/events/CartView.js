@@ -13,11 +13,7 @@ define(['text!template/cartView.html', 'dom/render', './makeEvented'], function(
 			self = this;
 			node = this.node;
 
-			node.innerHTML = template;
-			this.list = this.node.firstChild;
-			this.itemTemplate = this.list.innerHTML;
-
-			this.list.innerHTML = '';
+			this._initDom(node);
 
 			subscriptions = [];
 			subscriptions.push(controller.on('add',
@@ -48,6 +44,13 @@ define(['text!template/cartView.html', 'dom/render', './makeEvented'], function(
 				}
 			}
 
+		},
+
+		_initDom: function(node) {
+			node.innerHTML = template;
+			this.list = this.node.firstChild;
+			this.itemTemplate = this.list.innerHTML;
+			this.list.innerHTML = '';
 		},
 
 		addItem: function(item) {

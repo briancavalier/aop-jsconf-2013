@@ -4,6 +4,7 @@
   "dependencies": {
     "curl": "~0.7",
     "when": "~2.1",
-	"meld": "~1"
+    "meld": "~1",
+    "wire": "~0.9.4"
   }
 }
