@@ -1,4 +1,4 @@
-define(['text!template/productListView.html', 'dom/renderList', './makeEvented'], function(template, renderList, makeEvented) {
+define(['text!template/productListView.html', 'dom/renderList', 'dom/findAncestorAttr', './makeEvented'], function(template, renderList, findAncestorAttr, makeEvented) {
 
 	function ProductListView(node) {
 		makeEvented(this);
@@ -24,9 +24,7 @@ define(['text!template/productListView.html', 'dom/renderList', './makeEvented']
 			function handleAddClick(e) {
 				var itemNode, id;
 				if(e.target.className === 'add') {
-					itemNode = findItemNode(e.target);
-					id = itemNode.getAttribute('data-item-id');
-
+					id = findAncestorAttr('data-item-id', e.target);
 					self.emit('add', products.find(id));
 				}
 			}

@@ -1,4 +1,4 @@
-define(['text!template/productListView.html', 'dom/renderList'], function(template, renderList) {
+define(['text!template/productListView.html', 'dom/renderList', 'dom/findAncestorAttr'], function(template, renderList, findAncestorAttr) {
 
 	function ProductListView(node) {
 		this.node = node;
@@ -23,11 +23,8 @@ define(['text!template/productListView.html', 'dom/renderList'], function(templa
 			function handleAddClick(e) {
 				var itemNode, id;
 				if(e.target.className === 'add') {
-					itemNode = findItemNode(e.target);
-					if(itemNode) {
-						id = itemNode.getAttribute('data-item-id');
-						self.productAdded(products.find(id));
-					}
+					id = findAncestorAttr('data-item-id', e.target);
+					self.productAdded(products.find(id));
 				}
 			}
 		},
@@ -40,14 +37,5 @@ define(['text!template/productListView.html', 'dom/renderList'], function(templa
 	};
 
 	return ProductListView;
-
-	function findItemNode(startingNode) {
-		var itemNode = startingNode;
-		while(!itemNode.hasAttribute('data-item-id') && itemNode.parentNode) {
-			itemNode = itemNode.parentNode;
-		}
-
-		return itemNode;
-	}
 
 });

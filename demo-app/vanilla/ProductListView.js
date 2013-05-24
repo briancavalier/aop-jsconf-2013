@@ -1,4 +1,4 @@
-define(['text!template/productListView.html', 'dom/renderList', 'dom/addClassWhile'], function(template, renderList, addClassWhile) {
+define(['text!template/productListView.html', 'dom/renderList', 'dom/findAncestorAttr'], function(template, renderList, findAncestorAttr) {
 
 	function ProductListView(node) {
 		this.node = node;
@@ -20,11 +20,8 @@ define(['text!template/productListView.html', 'dom/renderList', 'dom/addClassWhi
 			function handleAddClick(e) {
 				var itemNode, id;
 				if(e.target.className === 'add') {
-					itemNode = findItemNode(e.target);
-					id = itemNode.getAttribute('data-item-id');
-
-					addClassWhile('adding', node,
-						controller.addItemToCart(products.find(id)));
+					id = findAncestorAttr('data-item-id', e.target);
+					controller.addItemToCart(products.find(id));
 				}
 			}
 		},
@@ -33,14 +30,5 @@ define(['text!template/productListView.html', 'dom/renderList', 'dom/addClassWhi
 	};
 
 	return ProductListView;
-
-	function findItemNode(startingNode) {
-		var itemNode = startingNode;
-		while(!itemNode.hasAttribute('data-item-id') && itemNode.parentNode) {
-			itemNode = itemNode.parentNode;
-		}
-
-		return itemNode;
-	}
 
 });

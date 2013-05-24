@@ -1,5 +1,5 @@
 (function(define) {
-define(['text!template/cartView.html', 'dom/render', 'dom/findAncestorNode', 'dom/addClassWhile'], function(template, render, findAncestorNode, addClassWhile) {
+define(['text!template/cartView.html', 'dom/render', 'dom/findAncestorNode'], function(template, render, findAncestorNode) {
 
 	function CartView(node) {
 		this.node = node;
@@ -29,8 +29,6 @@ define(['text!template/cartView.html', 'dom/render', 'dom/findAncestorNode', 'do
 							.then(function() {
 								itemNode.parentNode.removeChild(itemNode);
 							});
-
-						addClassWhile('removing', node, promise);
 					}
 				}
 			}

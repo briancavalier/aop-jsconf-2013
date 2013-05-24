@@ -31,3 +31,15 @@
     display: inline-block;
 }
 
+.messages-container {
+    clear: both;
+    text-align: center;
+}
+
+.message {
+    display: none;
+}
+
+.adding-to-cart .message.adding {
+    display: block;
+}

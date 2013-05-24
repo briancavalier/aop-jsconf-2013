@@ -1,4 +1,4 @@
-define(['text!template/productListView.html', 'dom/renderList', './pubsub'], function(template, renderList, pubsub) {
+define(['text!template/productListView.html', 'dom/renderList', 'dom/findAncestorAttr', './pubsub'], function(template, renderList, findAncestorAttr, pubsub) {
 
 	function ProductListView(node) {
 		this.node = node;
@@ -20,9 +20,7 @@ define(['text!template/productListView.html', 'dom/renderList', './pubsub'], fun
 			function handleAddClick(e) {
 				var itemNode, id;
 				if(e.target.className === 'add') {
-					itemNode = findItemNode(e.target);
-					id = itemNode.getAttribute('data-item-id');
-
+					id = findAncestorAttr('data-item-id', e.target);
 					pubsub.publish('product/add', products.find(id));
 				}
 			}
@@ -32,14 +30,5 @@ define(['text!template/productListView.html', 'dom/renderList', './pubsub'], fun
 	}
 
 	return ProductListView;
-
-	function findItemNode(startingNode) {
-		var itemNode = startingNode;
-		while(!itemNode.hasAttribute('data-item-id') && itemNode.parentNode) {
-			itemNode = itemNode.parentNode;
-		}
-
-		return itemNode;
-	}
 
 });

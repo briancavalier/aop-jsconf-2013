@@ -20,7 +20,16 @@ define({
 			'cart.addItem': 'addItem',
 			'removeItemById': 'cart.removeItem'
 		},
+		around: {
+			'cart.addItem': 'addingItemAdvice'
+		},
 		ready: 'init'
+	},
+
+	addingItemAdvice: {
+		create: { module: './busyClassAdvice',
+			args: ['adding-to-cart', { $ref: 'dom.first!body' } ]
+		}
 	},
 
 	products: {
