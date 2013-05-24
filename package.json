@@ -33,6 +33,7 @@
 		"meld": "~1"
 	},
 	"devDependencies": {
+		"bower": "~0.9",
 		"buster": "~0.6",
 		"jshint": "~2"
 	},
@@ -40,6 +41,7 @@
 		"test": "test"
 	},
 	"scripts": {
+		"prepublish": "bower install",
 		"test": "jshint . && buster test -e node"
 	}
 }
