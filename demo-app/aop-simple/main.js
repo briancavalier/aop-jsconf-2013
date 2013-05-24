@@ -27,7 +27,7 @@ define(function(require) {
 		productListView.productAdded,
 		controller.addItemToCart.bind(controller));
 
-	cartView.removeItemById = aop.afterReturning(
+	cartView.removeItemById = aop.before(
 		cartView.removeItemById,
 		controller.removeItemFromCart.bind(controller));
 

@@ -1,6 +1,6 @@
 define(function(require) {
 
-	var Products, Cart, Controller, ProductListView, CartView, aop, productData,
+	var Products, Cart, Controller, ProductListView, CartView, meld, productData,
 		products, cart, controller, productListView, cartView,
 
 	Products = require('model/Products');
@@ -8,10 +8,10 @@ define(function(require) {
 	Controller = require('../aop-simple/Controller');
 	ProductListView = require('../aop-simple/ProductListView');
 	CartView = require('../aop-simple/CartView');
-	aop = require('aop');
-	productData = require('text!data/products.json');
+	meld = require('meld');
+	productData = require('data/products');
 
-	products = new Products(JSON.parse(productData));
+	products = new Products(productData);
 	cart = new Cart();
 	controller = new Controller();
 	productListView = new ProductListView(document.getElementById('product-list'));
@@ -24,7 +24,7 @@ define(function(require) {
 	meld.afterReturning(productListView, 'productAdded',
 		controller.addItemToCart.bind(controller));
 
-	meld.afterReturning(cartView, 'removeItemById',
+	meld.before(cartView, 'removeItemById',
 		controller.removeItemFromCart.bind(controller))
 
 	controller.init(cart);

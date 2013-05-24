@@ -1,5 +1,5 @@
 (function(define) {
-define(['text!template/cartView.html', 'dom/render'], function(template, render) {
+define(['text!template/cartView.html', 'dom/render', 'dom/findAncestorAttr'], function(template, render, findAncestorAttr) {
 
 	function CartView(node) {
 		this.node = node;
@@ -24,11 +24,8 @@ define(['text!template/cartView.html', 'dom/render'], function(template, render)
 			function handleRemoveClick(e) {
 				var itemNode, id;
 				if(e.target.className === 'remove') {
-					itemNode = findItemNode(e.target);
-					if(itemNode) {
-						id = itemNode.getAttribute('data-item-id');
-						self.removeItemById(id);
-					}
+					id = findAncestorAttr('data-item-id', e.target);
+					self.removeItemById(id);
 				}
 			}
 		},
@@ -59,15 +56,6 @@ define(['text!template/cartView.html', 'dom/render'], function(template, render)
 	};
 
 	return CartView;
-
-	function findItemNode(startingNode) {
-		var itemNode = startingNode;
-		while(!itemNode.hasAttribute('data-item-id') && itemNode.parentNode) {
-			itemNode = itemNode.parentNode;
-		}
-
-		return itemNode;
-	}
 
 });
 }(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));

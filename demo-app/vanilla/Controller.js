@@ -15,10 +15,6 @@ define(function(require) {
 		},
 
 		addItemToCart: function(item) {
-			if(!item) {
-				return when.reject(new Error('No such item'));
-			}
-
 			var cartView = this.cartView;
 			return this.cart.addItem(item)
 				.then(cartView.addItem.bind(cartView));

@@ -22,10 +22,6 @@ define(function(require) {
 		},
 
 		addItemToCart: function(item) {
-			if(!item) {
-				return when.reject(new Error('No such item'));
-			}
-
 			return this.cart.addItem(item).otherwise(
 				pubsub.publish.bind(pubsub, 'cart/add/error', item));
 		},

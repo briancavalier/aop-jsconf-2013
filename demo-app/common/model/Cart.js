@@ -1,12 +1,19 @@
 (function(define) {
 define(function(require) {
 
-	var delay = require('when/delay');
+	var when, delay;
+
+	when = require('when');
+	delay = require('when/delay');
 
 	function Cart() {}
 
 	Cart.prototype = {
 		addItem: function(item) {
+			if(!item) {
+				return when.reject(new Error('No such item'));
+			}
+
 			return delay(1000, item);
 		},
 

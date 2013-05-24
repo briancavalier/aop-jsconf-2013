@@ -24,10 +24,6 @@ define(function(require) {
 		},
 
 		addItemToCart: function(item) {
-			if(!item) {
-				return when.reject(new Error('No such item'));
-			}
-
 			return this.cart.addItem(item)
 				.then(this.emit.bind(this, 'add'))
 				.otherwise(this.emit.bind(this, 'add/error', item));

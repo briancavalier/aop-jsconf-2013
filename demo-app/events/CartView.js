@@ -1,5 +1,5 @@
 (function(define) {
-define(['text!template/cartView.html', 'dom/render', './makeEvented'], function(template, render, makeEvented) {
+define(['text!template/cartView.html', 'dom/render', 'dom/findAncestorNode', './makeEvented'], function(template, render, findAncestorNode, makeEvented) {
 
 	function CartView(node) {
 		makeEvented(this);
@@ -34,7 +34,7 @@ define(['text!template/cartView.html', 'dom/render', './makeEvented'], function(
 			function handleRemoveClick(e) {
 				var itemNode, id;
 				if(e.target.className === 'remove') {
-					itemNode = findItemNode(e.target);
+					itemNode = findAncestorNode('data-item-id', e.target);
 					if(itemNode) {
 						id = itemNode.getAttribute('data-item-id');
 
@@ -68,15 +68,6 @@ define(['text!template/cartView.html', 'dom/render', './makeEvented'], function(
 	};
 
 	return CartView;
-
-	function findItemNode(startingNode) {
-		var itemNode = startingNode;
-		while(!itemNode.hasAttribute('data-item-id') && itemNode.parentNode) {
-			itemNode = itemNode.parentNode;
-		}
-
-		return itemNode;
-	}
 
 });
 }(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
