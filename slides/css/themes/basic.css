@@ -1,0 +1,126 @@
+/*
+	Copyright (c) 2011 Brian Cavalier
+	LICENSE: see the LICENSE.txt file. If file is missing, this file is subject
+	to the MIT License at: http://www.opensource.org/licenses/mit-license.php.
+*/
+
+@import "../reset.css";
+
+html {
+	height: 100%;
+	overflow-y: auto;
+}
+
+body {
+	font-size: 100%;
+	color: #222;
+}
+
+footer {
+	min-width: 40em;
+	width: 80%;
+	margin: 1em auto;
+	font-size: 1em;
+	text-align: right;
+}
+
+footer p {
+	color: #ccc;
+}
+
+em {
+	font-style: normal;
+	color: #888;
+}
+
+pre code {
+    background-color: transparent;
+}
+
+.slide h1, .slide h2, .slide h3, .slide h4, .slide h5 {
+	font-weight: bold;
+	margin: .25em 0;
+}
+
+.slide h1 {
+	font-size: 3em;
+	margin-top: 0;
+}
+
+.slide h2 {
+	font-size: 1.5em;
+	color: #666;
+}
+
+.slide p {
+	line-height: 1.25em;
+}
+
+.slide-view-module {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	min-width: 40em;
+	min-height: 20em;
+	padding: 0;
+	margin: 0;
+}
+
+.slide {
+	font-size: 200%;
+	top: 0;
+	left: 10%;
+	width: 80%;
+	min-height: 5em;
+	margin: 0 auto;
+}
+
+.slide-current {
+	opacity: 1;
+	z-index: 1;
+}
+
+.slide ul {
+	list-style-type: disc;
+}
+
+.slide li {
+	margin-bottom: .25em;
+}
+
+.no-touch .slide-touch {
+	display: none;
+}
+
+.touch .slide-no-touch {
+	display: none;
+}
+
+@media screen and (max-device-width: 480px) {
+/*	body {
+		height: auto;
+	}*/
+	.slide {
+		height: auto;
+		font-size: 100%;
+		min-height: auto;
+	}
+	
+	.slide-view-module {
+		min-width: 0;
+		min-height: 0;
+	}
+	
+	footer {
+		margin-top: 2em;
+		min-width: 0;
+		font-size: .75em;
+	}
+}
+
+@media screen and (max-device-width: 480px) and (orientation: landscape) {
+	footer {
+		font-size: .4em;
+	}
+}

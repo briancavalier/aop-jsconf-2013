@@ -1,0 +1,81 @@
+/*
+	Copyright (c) 2011 Brian Cavalier
+	LICENSE: see the LICENSE.txt file. If file is missing, this file is subject
+	to the MIT License at: http://www.opensource.org/licenses/mit-license.php.
+*/
+
+@import "../basic.css";
+
+.slide-view-module {
+	margin-top: 4em;
+}
+
+.slide {
+	font-size: 250%;
+}
+
+.slide h1 {
+	font-size: 4em;
+	font-weight: bold;
+	color: #dadada;
+	margin-bottom: 0;
+	letter-spacing: -.08em;
+	text-rendering: optimizeLegibility;
+}
+
+.slide h2 {
+	color: #444;
+	margin-top: 0;
+	margin-left: .5em;
+}
+
+.slide p {
+	color: #222;
+	margin-left: 2em;
+}
+
+.slide em {
+	font-style: normal;
+	color: #888;
+}
+
+.slide ul > ul {
+	font-size: 90%;
+}
+
+.slide li {
+	line-height: 1em;
+	margin-bottom: .75em;
+}
+
+.slide .slide-layout-title {
+	padding-top: 2em;
+}
+
+@media screen and (max-device-width: 480px) {
+	.slide-view-module {
+		margin-top: 2em;
+	}
+	
+	.slide {
+		font-size: 90%;
+	}
+
+	.slide .slide-layout-title {
+		padding-top: 0;
+	}
+	
+	.slide p {
+		font-size: 1.25em;
+		margin-left: .25em;
+	}
+	
+	.slide h2 {
+		margin-left: .25em;
+	}
+
+	.slide li {
+		font-size: 1.25em;
+	}
+
+}

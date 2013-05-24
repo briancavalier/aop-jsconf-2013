@@ -1,0 +1,24 @@
+/*
+ 	@license Copyright (c) 2011 Brian Cavalier
+	LICENSE: see the LICENSE.txt file. If file is missing, this file is subject
+	to the MIT License at: http://www.opensource.org/licenses/mit-license.php.
+ */
+
+.slide {
+	transition:         opacity 400ms ease;
+	-webkit-transition: opacity 400ms ease;
+	-moz-transition:    opacity 400ms ease;
+	-o-transition:      opacity 400ms ease;
+	-khtml-transition:  opacity 400ms ease;
+	-ms-transition:     opacity 400ms ease;
+	
+	opacity: 0;
+}
+
+.slide-view-module .slide-before, .slide-view-module .slide-after {
+	position: absolute;
+	z-index: -1;
+}
+.slide-current {
+	opacity: 1;
+}

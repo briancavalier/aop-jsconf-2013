@@ -17,12 +17,12 @@
 //		paths: { 'model/Cart': 'common/model/CartFail' },
 		// AMD packages. Note we're loading aop-simple as pure CommonJS
 		packages: {
-			curl:  { location: 'components/curl/src/curl' },
-			when:  { location: 'components/when', main: 'when' },
-			meld:  { location: 'components/meld', main: 'meld' },
+			curl:  { location: '../components/curl/src/curl' },
+			when:  { location: '../components/when', main: 'when' },
+			meld:  { location: '../components/meld', main: 'meld' },
 			aop:   { location: '../src', main: 'aop-simple',
 				config: { moduleLoader: 'curl/loader/cjsm11' }},
-			wire:  { location: 'components/wire', main: 'wire' },
+			wire:  { location: '../components/wire', main: 'wire' },
 			model: { location: 'common/model' },
 			dom:   { location: 'common/dom' },
 			data:  { location: 'common/data' },
