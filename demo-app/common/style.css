@@ -1,3 +1,8 @@
+#main {
+    margin: 0 auto;
+    width: 80%;
+}
+
 .product-container {
     float: left;
     width: 60%;
@@ -7,8 +12,9 @@
 .cart-container {
     float: left;
     font-size: .8em;
-    width: 40%;
     max-width: 400px;
+    text-align: right;
+    width: 40%;
 }
 
 .product-list-view, .cart-view {
@@ -37,9 +43,12 @@
 }
 
 .message {
-    display: none;
+    opacity: 0;
+    transition: opacity .5s ease;
+    -webkit-transition: opacity .5s ease;
+    -moz-transition: opacity .5s ease;
 }
 
 .adding-to-cart .message.adding {
-    display: block;
+    opacity: 1;
 }
