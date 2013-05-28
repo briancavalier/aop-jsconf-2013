@@ -100,15 +100,54 @@ Brian Cavalier
 
 ## Let's make a simple app
 
+---
+
+![Components](img/components.png)
+
+---
+
+![Connectors](img/connectors.png)
+
+---
+
+# Examples
+
+## Let's build it
+
 * [Hardcoded](demo-app) - [code](demo-app/vanilla)
 * [Events](demo-app/#events) - [code](demo-app/events)
 * [Pubsub](demo-app/#pubsub) - [code](demo-app/pubsub)
 
 ---
 
+![Coupled](img/coupled.png)
+
+---
+
+![Inseparable](img/inseparable.png)
+
+---
+
+# Bad
+
+## Components are either coupled directly to each other, or directly to a connection lib API
+
+* Lots of mocking to unit test
+* Components can easily break one another
+* Adding a new component means changing the source code of existing components
+* Changing one component may require
+	* updating many mocks
+	* re-unit testing all components!
+
+---
+
 # Composition plan
 
 ## A dedicated place to do application composition
+
+---
+
+![Composition](img/composition.png)
 
 ---
 
