@@ -10,18 +10,71 @@ Brian Cavalier, cujoJS co-lead & Spring Javascript @ Pivotal
 
 ---
 
-# AOP
+# Two things
 
-* Aspect Oriented Programming
+* AOP
 * Application Composition
 
 ---
 
 # AOP
 
-## *What* Oriented Programming?
+## Aspect Oriented Programming
 
-What's an aspect?
+---
+
+# AOP
+
+* *What* Oriented Programming?
+* What's an aspect?
+* Awesome, I came to JSConf to learn more TLAs
+
+---
+
+# AOP
+
+* Aspect: Some encapsulated unit of behavior
+* AOP: Technique for composing units of behavior
+
+---
+
+# Um
+
+## Where I come from, we call that "programming"
+
+---
+
+# AOP
+
+## Technique for composing units of behavior
+
+* controlled
+* non-invasive
+
+---
+
+# AOP
+
+* controlled - guarantees about *not breaking your stuff*
+* non-invasive - without changing the *source code*
+
+---
+
+# Examples
+
+The required, slightly boring, yet surprisingly illustrative examples
+
+* Logging
+* Profiling
+* etc.
+
+---
+
+# But, but
+
+* 
+
+---
 
 ---
 
@@ -45,3 +98,8 @@ What's an aspect?
 1. Declarative AOP w/wire and meld
 	1. TodoMVC
 	2. Monty Hall?
+
+1. Other libs
+	* Dojo: dojo/aspect
+	* Flight: flight/advice
+	* dcl https://github.com/uhop/dcl

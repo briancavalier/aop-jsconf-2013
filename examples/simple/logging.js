@@ -1,25 +1,31 @@
-var aop, section, Thing, thing, result, slice, origDoStuff;
+var aop, section, thing, result, slice, origDoStuff;
 
-section = require('../lib/format').section;
+section = require('../format').section;
 slice = Function.prototype.call.bind([].slice);
-
-//-------------------------------------------------------------
-// Our simple AOP library
-
-aop = require('../../src/aop-simple');
 
 //-------------------------------------------------------------
 // A Thing constructor we'll use in all the examples
 
-Thing = require('../lib/Thing');
+function Thing() {}
+
+Thing.prototype = {
+	doStuff: function(x) {
+		if(x < 0) {
+			throw new Error('dont\'t be so negative');
+		}
+		return x + 1;
+	}
+};
+
+// Save this so we can replace it for some examples
+origDoStuff = Thing.prototype.doStuff;
+
 
 //-------------------------------------------------------------
 section([
 	'What if we want to debug a Thing by logging it\'s parameters,',
 	'return value, and any exceptions that it throws?'
 ]);
-
-origDoStuff = Thing.prototype.doStuff;
 
 Thing.prototype.doStuff = function(x) {
 	console.log('called with', slice(arguments));
@@ -71,12 +77,17 @@ try {
 
 //-------------------------------------------------------------
 section([
-	'Almost as lame :/',
+	'Also LAME :/',
 	'Let\'s try AOP!  After we create thing, we can "advise" its doStuff',
 	'method. Then we can give out thing to clients as usual, and they',
 	'can\'t tell the difference--except that now thing.doStuff will',
 	'always log it\'s arguments',
 ]);
+
+//-------------------------------------------------------------
+// Our simple AOP library
+
+aop = require('../../src/aop-simple');
 
 thing.doStuff = aop.before(thing.doStuff, console.log.bind(console, 'called with'));
 result = thing.doStuff(1);

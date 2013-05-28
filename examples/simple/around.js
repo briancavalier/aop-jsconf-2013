@@ -1,6 +1,6 @@
 var aop, section, result, slice, fib;
 
-section = require('../lib/format').section;
+section = require('../format').section;
 slice = Function.prototype.call.bind([].slice);
 
 //-------------------------------------------------------------
@@ -14,9 +14,12 @@ function fibonacci(n) {
 		: fibonacci(n-1) + fibonacci(n - 2);
 }
 
+//-------------------------------------------------------------
 section([
 	'Yay, fibonacci, everyone\'s fav',
-	'But wait, we can\'t see it doing anything'
+	'But wait, we can\'t see it doing anything. We won\'t see',
+	'any output here, since finbonacci() just computes and',
+	'returns the value'
 ]);
 
 fibonacci(0);
@@ -26,6 +29,7 @@ fibonacci(3);
 fibonacci(4);
 fibonacci(5);
 
+//-------------------------------------------------------------
 section([
 	'Let\'s add some simple logging'
 ]);
@@ -39,6 +43,7 @@ fib(3);
 fib(4);
 fib(5);
 
+//-------------------------------------------------------------
 section([
 	'That\'s better, but it\'d be nicer if we could see the input',
 	'and the output.  Around advice can do that.'
@@ -59,6 +64,7 @@ fib(3);
 fib(4);
 fib(5);
 
+//-------------------------------------------------------------
 section([
 	'Cool, and now we can wrap that up into a prettyPrint "aspect"'
 ]);
@@ -82,6 +88,7 @@ fib(3);
 fib(4);
 fib(5);
 
+//-------------------------------------------------------------
 section([
 	'Fibonacci is computationally intensive, so let\'s profile it',
 	'to see how it behaves with bigger inputs, and since we already',
@@ -107,6 +114,7 @@ fib(20);
 fib(30);
 fib(40);
 
+//-------------------------------------------------------------
 section([
 	'Wow, things get brutal around 40.  Let\'s memoize it so we',
 	'only pay that cost once.  We can stack prettyPrint and profiling',

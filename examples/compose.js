@@ -1,13 +1,34 @@
-var meld, simple, section, Thing, thing;
+var meld, simple, section, thing;
 
 meld = require('meld');
 simple = require('../src/aop-simple');
-section = require('./lib/format').section;
-Thing = require('./lib/Thing');
+section = require('./format').section;
+
+function Thing() {}
+
+Thing.prototype = {
+	doStuff: function(x) {
+		return x + 1;
+	}
+};
+
+//-------------------------------------------------------------
+section([
+	'Our simple AOP lib can compose advices easily.  However, they',
+	'stack a bit differently than traditional AOP.  That\'s fine.',
+	'Use whatever works for you as long as you recognize the differences'
+]);
 
 thing = new Thing();
 thing.doStuff = simple.around(simple.before(simple.after(thing.doStuff, after), before), aroundSimple);
 thing.doStuff(1);
+
+//-------------------------------------------------------------
+section([
+	'meld.js advices also stack easily and predictably.  Notice here',
+	'that before advice is always executed first, and after advice is',
+	'always executed last, even though around advice is applied later'
+]);
 
 thing = new Thing();
 meld.after (thing, 'doStuff', after);
