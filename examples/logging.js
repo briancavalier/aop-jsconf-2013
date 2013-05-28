@@ -1,6 +1,6 @@
 var aop, section, thing, result, slice, origDoStuff, logger, loggingEnabled;
 
-section = require('../format').section;
+section = require('./format').section;
 slice = Function.prototype.call.bind([].slice);
 
 //-------------------------------------------------------------
@@ -166,7 +166,7 @@ section([
 //-------------------------------------------------------------
 // Our simple AOP library
 
-aop = require('../../src/aop-simple');
+aop = require('../src/aop-simple');
 
 thing = new Thing();
 

@@ -1,3 +1,42 @@
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+  display: block;
+}
+
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+}
+
+a:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+a:hover,
+a:active {
+  outline: 0;
+}
+
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+  background-color: #ffffff;
+}
+
 #main {
     margin: 0 auto;
     width: 80%;
@@ -12,9 +51,17 @@
 .cart-container {
     float: left;
     font-size: .8em;
-    max-width: 400px;
+    height: 100%;
+    overflow: hidden;
+    max-width: 500px;
+    width: 30%;
+}
+
+#cart {
+    background-color: #eee;
+    min-height: 200px;
+    padding: 1em;
     text-align: right;
-    width: 40%;
 }
 
 .product-list-view, .cart-view {
@@ -24,17 +71,16 @@
 }
 
 .product-list-item {
-    width: 200px;
+    border: 1px solid #ccc;
+    display: inline-block;
+    margin: .5em;
+    padding: 1em;
     vertical-align: top;
+    width: 150px;
 }
 
 .product-list-item span {
     display: block;
-}
-
-.product-list-item {
-    margin: 1em;
-    display: inline-block;
 }
 
 .messages-container {

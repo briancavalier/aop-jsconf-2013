@@ -1,10 +1,9 @@
-Slides and code for [Connecting your shiz.js with AOP](http://2013.jsconf.us/schedule) @ [JSConf 2013](http://2013.jsconf.us)
-
----
-
 # Connecting your shiz.js with AOP
 
-Brian Cavalier, cujoJS co-lead & Spring Javascript @ Pivotal
+Brian Cavalier
+
+[cujoJS](http://cujojs.com) co-lead & Spring Javascript @ Pivotal
+
 [@briancavalier](http://twitter.com/briancavalier)
 [blog](http://blog.briancavalier.com)
 
@@ -40,16 +39,7 @@ Brian Cavalier, cujoJS co-lead & Spring Javascript @ Pivotal
 
 # Um
 
-## Where I come from, we call that "programming"
-
----
-
-# AOP
-
-## Technique for composing units of behavior
-
-* controlled
-* non-invasive
+## Where I come from, we call that *programming*
 
 ---
 
@@ -60,13 +50,23 @@ Brian Cavalier, cujoJS co-lead & Spring Javascript @ Pivotal
 
 ---
 
+# AOP
+
+* [cujoJS](http://cujojs.com) - [meld](https://github.com/cujojs/meld)
+* [Dojo](http://dojotoolkit.org) - dojo/aspect
+* [Flight](http://twitter.github.io/flight/) - flight/advice
+* [dcl](https://github.com/uhop/dcl)
+* Exists in many other languages/platforms as well, e.g. Spring AOP, AspectJ
+
+---
+
 # Examples
 
-The required, slightly boring, yet surprisingly illustrative examples
+## The required, slightly boring, yet surprisingly illustrative examples
 
-* Logging
-* Profiling
-* Memoization
+* [Logging](examples/logging.js)
+* [Profiling](examples/around.js)
+* [Memoization](examples/around.js)
 
 ---
 
@@ -98,13 +98,26 @@ The required, slightly boring, yet surprisingly illustrative examples
 
 # Examples
 
-## Let's make a real app, times 5
+## Let's make a simple app
+
+* [Hardcoded](demo-app) - [code](demo-app/vanilla)
+* [Events](demo-app/#events) - [code](demo-app/events)
+* [Pubsub](demo-app/#pubsub) - [code](demo-app/pubsub)
 
 ---
 
 # Composition plan
 
 ## A dedicated place to do application composition
+
+---
+
+# Examples
+
+## Let's re-make it using AOP and composition
+
+* [Simple AOP](demo-app/#aop-simple) - [code](demo-app/aop-simple)
+* [meld.js AOP](demo-app/#aop-meld) - [code](demo-app/aop-meld)
 
 ---
 
@@ -123,38 +136,19 @@ The required, slightly boring, yet surprisingly illustrative examples
 
 # Composition
 
-If we're always connecting components together in similar ways, couldn't we create a *DSL* to do it?
+## If we're always connecting components together in similar ways, couldn't we create a *DSL* to do it?
 
 ---
 
 # Yes
 
-## Here's an example
+## Here's our simple app again
+
+* [cujoJS 1](demo-app/#cujojs-1) (still has a Controller) - [code](demo-app/cujojs-1)
+* [cujoJS 2](demo-app/#cujojs-2) (Controller-less) - [code](demo-app/cujojs-2)
 
 ---
 
-## Notes
+# TODO
 
-1. Connections
-1. Less flexible connections
-	1. Hardcoded examples
-	1. Event emitter examples
-	1. Pubsub examples
-1. Ideal
-	* Components have no knowledge of each other
-	* Can be tested and refactored independently
-1. Intro to AOP
-1. Simple AOP lib and examples
-1. Connection examples
-1. Transforming/adapting data
-	1. Hardcoded approaches require even more hardcoding, making testing and refactoring even more difficult.  Components can't be adapted to new situations as easily
-	1. AOP allows data transformations to happen *between* components, that is, along the line between two boxes.
-1. Examples
-1. Declarative AOP w/wire and meld
-	1. TodoMVC
-	2. Monty Hall?
-
-1. Other libs
-	* Dojo: dojo/aspect
-	* Flight: flight/advice
-	* dcl https://github.com/uhop/dcl
+* Need wrap-up slides

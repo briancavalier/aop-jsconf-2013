@@ -20,9 +20,6 @@ define({
 			'cart.addItem': 'addItem',
 			'removeItemById': 'cart.removeItem'
 		},
-		// around: {
-		// 	'cart.addItem': 'addingItemAdvice'
-		// },
 		ready: 'init'
 	},
 
@@ -38,7 +35,12 @@ define({
 		}
 	},
 
-	cart: { create: 'model/Cart' },
+	cart: {
+		create: 'model/Cart',
+		around: {
+			'addItem': 'addingItemAdvice'
+		},
+	},
 
 	$plugins: [{ module: 'wire/dom' }, { module: 'wire/aop' }]
 });
