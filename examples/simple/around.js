@@ -31,7 +31,7 @@ fibonacci(5);
 
 //-------------------------------------------------------------
 section([
-	'Let\'s add some simple logging'
+	'Let\'s add some simple logging, so we can see it'
 ]);
 
 fib = aop.afterReturning(fibonacci, console.log.bind(console));

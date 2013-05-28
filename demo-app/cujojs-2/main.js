@@ -20,9 +20,9 @@ define({
 			'cart.addItem': 'addItem',
 			'removeItemById': 'cart.removeItem'
 		},
-		around: {
-			'cart.addItem': 'addingItemAdvice'
-		},
+		// around: {
+		// 	'cart.addItem': 'addingItemAdvice'
+		// },
 		ready: 'init'
 	},
 

@@ -66,15 +66,70 @@ The required, slightly boring, yet surprisingly illustrative examples
 
 * Logging
 * Profiling
-* etc.
+* Memoization
 
 ---
 
-# But, but
+# Neato, but yawn
 
-* 
+## Users don't actually care about logging, so if that's all we could do, this would lame
 
 ---
+
+# What if
+
+## we could use this kind of approach to connect more interesting things together?
+
+* Views
+* Controllers
+* Models
+* *Any* application component
+
+---
+
+# Application Composition
+
+## Connecting application components together to make a particular application
+
+* Now *that* sounds useful
+* It also sounds a lot like AOP: "composing units of behavior"
+
+---
+
+# Examples
+
+## Let's make a real app, times 5
+
+---
+
+# Composition plan
+
+## A dedicated place to do application composition
+
+---
+
+# So what?
+
+* Components have no knowledge of each other
+	* unit tests are easy, less mocking
+* Can change the plan without changing the components' source
+	* don't need to re-run unit test
+* Can add new behavior to existing applications
+	* minimize regressions
+* Can create a new plan (i.e. application variant) without changing source
+	* build faster
+
+---
+
+# Composition
+
+If we're always connecting components together in similar ways, couldn't we create a *DSL* to do it?
+
+---
+
+# Yes
+
+## Here's an example
 
 ---
 

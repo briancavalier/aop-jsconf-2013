@@ -1,4 +1,4 @@
-var aop, section, thing, result, slice, origDoStuff;
+var aop, section, thing, result, slice, origDoStuff, logger, loggingEnabled;
 
 section = require('../format').section;
 slice = Function.prototype.call.bind([].slice);
@@ -84,14 +84,59 @@ section([
 	'always log it\'s arguments',
 ]);
 
+thing = new Thing();
+
+// Do something before the original doStuff
+origDoStuff = Thing.prototype.doStuff;
+thing.doStuff = function(x) {
+	console.log('called with', x);
+	return origDoStuff.call(this, x);
+};
+
+thing.doStuff(1);
+
+// Also do something with the return value, after it returns
+var tmpDoStuff1 = thing.doStuff;
+thing.doStuff = function(x) {
+	var result = tmpDoStuff1.call(this, x);
+	console.log('returned', result);
+};
+
+thing.doStuff(1);
+
+// And also do something if it throws
+var tmpDoStuff2 = thing.doStuff;
+thing.doStuff = function(x) {
+	try {
+		return tmpDoStuff2.call(this, x);
+	} catch(e) {
+		console.log('threw', e);
+		throw e;
+	}
+};
+
+thing.doStuff(1);
+
+try {
+	thing.doStuff(-1);
+} catch(e) { /* let's just keep node from crashing, shall we? */}
+
+//-------------------------------------------------------------
+section([
+	'Now that we have some interesting patterns, we can package',
+	'them up and reuse them. Here\'s a simple AOP lib in about',
+	'50 lines of JS.'
+]);
+
 //-------------------------------------------------------------
 // Our simple AOP library
 
 aop = require('../../src/aop-simple');
 
+thing = new Thing();
+
 thing.doStuff = aop.before(thing.doStuff, console.log.bind(console, 'called with'));
 result = thing.doStuff(1);
-console.log('returned', result);
 
 
 //-------------------------------------------------------------
@@ -124,8 +169,8 @@ try {
 
 //-------------------------------------------------------------
 section([
-	'We can wrap this up in an "aspect" -- a complex "behavior"',
-	'that we can add to any function'
+	'We can wrap this up in an "aspect" -- a more interesting',
+	'"behavior" that we can add to any function'
 ]);
 
 function addLogging(target) {
@@ -152,7 +197,7 @@ thing.doStuff(1, 2, 3, 4);
 //-------------------------------------------------------------
 section([
 	'What if we want to log All The Things?',
-	'We can advise Thing.prototype'
+	'We can apply our aspect to Thing.prototype'
 ]);
 
 Thing.prototype.doStuff = addLogging(Thing.prototype.doStuff);
@@ -171,7 +216,6 @@ thing.doStuff(1, 2, 3, 4);
 section([
 	'We can even represent constraints as advice'
 ]);
-
 
 origDoStuff = Thing.prototype.doStuff = function(x) {
 	return x + 1;
@@ -196,12 +240,13 @@ try {
 
 thing.doStuff(1, 2, 3, 4);
 
+// reset
+Thing.prototype.doStuff = origDoStuff;
+
 //-------------------------------------------------------------
 section([
 	'And add additional constraints!'
 ]);
-
-Thing.prototype.doStuff = origDoStuff;
 
 function checkArgMore(x) {
 	if(x > 11) {
@@ -229,3 +274,53 @@ try {
 	result = thing.doStuff(12);
 } catch(e) {}
 
+// reset
+Thing.prototype.doStuff = origDoStuff;
+
+//-------------------------------------------------------------
+section([
+	'There\'s no reason we have to use console. We could use',
+	'our own Logger component.  Now we\'re starting to do',
+	'something a bit more interesting: compose together our',
+	'own components using AOP without changing the source',
+	'code of either component'
+]);
+
+function Logger() {}
+
+Logger.prototype = {
+	log: function() {
+		var args = ['LOG:', new Date()].concat(slice(arguments));
+		console.log.apply(console, args);
+	},
+	error: function() {
+		var args = ['ERROR! Go wake the devs!', new Date()].concat(slice(arguments))
+		console.error.apply(console, args);
+	}
+}
+
+logger = new Logger();
+loggingEnabled = true;
+
+function addLogger(target) {
+	if(loggingEnabled) {
+		var log, error;
+
+		log = logger.log.bind(logger);
+		error = logger.error.bind(logger);
+
+		return aop.afterThrowing(aop.afterReturning(aop.before(target, log), log), error);
+	} else {
+		return target;
+	}
+}
+
+Thing.prototype.doStuff = addLogger(addConstraints(Thing.prototype.doStuff));
+
+thing = new Thing();
+
+thing.doStuff(1);
+
+try {
+	result = thing.doStuff(-1);
+} catch(e) {}
