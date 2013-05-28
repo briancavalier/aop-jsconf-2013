@@ -20,7 +20,6 @@ Thing.prototype = {
 // Save this so we can replace it for some examples
 origDoStuff = Thing.prototype.doStuff;
 
-
 //-------------------------------------------------------------
 section([
 	'What if we want to debug a Thing by logging it\'s parameters,',
@@ -52,6 +51,18 @@ try {
 
 thing.doStuff(1, 2, 3, 4);
 
+// ===================================================================
+// What if we want to debug a Thing by logging it's parameters,
+// return value, and any exceptions that it throws?
+// ...................................................................
+// called with [ 1 ]
+// result 2
+// called with [ -1 ]
+// threw [Error: dont't be so negative]
+// called with [ 1, 2, 3, 4 ]
+// result 2
+
+
 //-------------------------------------------------------------
 // Ok, that was lame, let's start over and try again
 
@@ -74,6 +85,15 @@ try {
 } catch(e) {
 	console.log('threw', e);
 }
+
+// ===================================================================
+// That works, but is LAME!
+// Why should we have to modify the SOURCE CODE of Thing to debug it??
+// We could also do it manually at the point of call, but then we
+// have to do it EVERYWHERE we call thing.doStuff
+// ...................................................................
+// called with 1
+// returned 2
 
 //-------------------------------------------------------------
 section([
@@ -121,6 +141,21 @@ try {
 	thing.doStuff(-1);
 } catch(e) { /* let's just keep node from crashing, shall we? */}
 
+// ===================================================================
+// Also LAME :/
+// Let's try AOP!  After we create thing, we can "advise" its doStuff
+// method. Then we can give out thing to clients as usual, and they
+// can't tell the difference--except that now thing.doStuff will
+// always log it's arguments
+// ...................................................................
+// called with 1
+// called with 1
+// returned 2
+// called with 1
+// returned 2
+// called with -1
+// threw [Error: dont't be so negative]
+
 //-------------------------------------------------------------
 section([
 	'Now that we have some interesting patterns, we can package',
@@ -138,6 +173,12 @@ thing = new Thing();
 thing.doStuff = aop.before(thing.doStuff, console.log.bind(console, 'called with'));
 result = thing.doStuff(1);
 
+// ===================================================================
+// Now that we have some interesting patterns, we can package
+// them up and reuse them. Here's a simple AOP lib in about
+// 50 lines of JS.
+// ...................................................................
+// called with 1
 
 //-------------------------------------------------------------
 section([
@@ -149,6 +190,13 @@ section([
 thing.doStuff = aop.afterReturning(thing.doStuff, console.log.bind(console, 'returned'));
 result = thing.doStuff(1);
 
+// ===================================================================
+// Cool, but we still need to log the return value
+// Never fear, AOP advices "stack" in sensible ways
+// Let's log the return value, too
+// ...................................................................
+// called with 1
+// returned 2
 
 //-------------------------------------------------------------
 section([
@@ -161,6 +209,14 @@ try {
 	result = thing.doStuff(-1);
 } catch(e) { /* let's just keep node from crashing, shall we? */}
 
+// ===================================================================
+// But what about exceptions?
+// We can use afterThrowing advice to log those, as well.
+// ...................................................................
+// called with -1
+// threw [Error: dont't be so negative]
+
+//-------------------------------------------------------------
 // Notice that the advice was able to OBSERVE the exception, but
 // not PREVENT it.  This can be very useful, as in the case of logging,
 // but can also be limiting.  For such cases, there is "around" advice
@@ -194,6 +250,17 @@ try {
 
 thing.doStuff(1, 2, 3, 4);
 
+// ===================================================================
+// We can wrap this up in an "aspect" -- a more interesting
+// "behavior" that we can add to any function
+// ...................................................................
+// called with 1
+// returned 2
+// called with -1
+// threw [Error: dont't be so negative]
+// called with 1 2 3 4
+// returned 2
+
 //-------------------------------------------------------------
 section([
 	'What if we want to log All The Things?',
@@ -211,6 +278,17 @@ try {
 } catch(e) {}
 
 thing.doStuff(1, 2, 3, 4);
+
+// ===================================================================
+// What if we want to log All The Things?
+// We can apply our aspect to Thing.prototype
+// ...................................................................
+// called with 1
+// returned 2
+// called with -1
+// threw [Error: dont't be so negative]
+// called with 1 2 3 4
+// returned 2
 
 //-------------------------------------------------------------
 section([
@@ -239,6 +317,16 @@ try {
 } catch(e) {}
 
 thing.doStuff(1, 2, 3, 4);
+
+// ===================================================================
+// We can even represent constraints as advice
+// ...................................................................
+// called with 1
+// returned 2
+// called with -1
+// threw [Error: dont't be so negative]
+// called with 1 2 3 4
+// returned 2
 
 // reset
 Thing.prototype.doStuff = origDoStuff;
@@ -273,6 +361,18 @@ thing.doStuff(11);
 try {
 	result = thing.doStuff(12);
 } catch(e) {}
+
+// ===================================================================
+// And add additional constraints!
+// ...................................................................
+// called with 1
+// returned 2
+// called with -1
+// threw [Error: dont't be so negative]
+// called with 11
+// returned 12
+// called with 12
+// threw [Error: this one goes to 11, but that's all my friend]
 
 // reset
 Thing.prototype.doStuff = origDoStuff;
@@ -324,3 +424,15 @@ thing.doStuff(1);
 try {
 	result = thing.doStuff(-1);
 } catch(e) {}
+
+// ===================================================================
+// There's no reason we have to use console. We could use
+// our own Logger component.  Now we're starting to do
+// something a bit more interesting: compose together our
+// own components using AOP without changing the source
+// code of either component
+// ...................................................................
+// LOG: Tue May 28 2013 11:10:37 GMT-0400 (EDT) 1
+// LOG: Tue May 28 2013 11:10:37 GMT-0400 (EDT) 2
+// LOG: Tue May 28 2013 11:10:37 GMT-0400 (EDT) -1
+// ERROR! Go wake the devs! Tue May 28 2013 11:10:37 GMT-0400 (EDT) [Error: dont't be so negative]
