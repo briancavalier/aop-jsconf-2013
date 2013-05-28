@@ -4,7 +4,7 @@
 	curl({
 		main: 'main',
 		paths: {
-			'content': '../README.md',
+			'content': 'slides.md',
 			'themes': 'css/themes'
 		},
 		packages: {
