@@ -37,24 +37,33 @@ body {
   background-color: #ffffff;
 }
 
+h1 {
+  font-size: 4em;
+  line-height: 1;
+}
+
+h2 {
+  font-size: 2em;
+  line-height: 1;
+}
+
 #main {
     margin: 0 auto;
-    width: 80%;
+    width: 95%;
 }
 
 .product-container {
     float: left;
-    width: 60%;
-    max-width: 600px;
+    width: 70%;
+    min-width: 200px;
 }
 
 .cart-container {
     float: left;
-    font-size: .8em;
     height: 100%;
     overflow: hidden;
-    max-width: 500px;
-    width: 30%;
+    min-width: 200px;
+    width: 20%;
 }
 
 #cart {
@@ -76,11 +85,16 @@ body {
     margin: .5em;
     padding: 1em;
     vertical-align: top;
-    width: 150px;
+    width: 28%;
+    min-width: 150px;
 }
 
 .product-list-item span {
     display: block;
+}
+
+.product-list-item .name {
+  font-weight: bold;
 }
 
 .messages-container {

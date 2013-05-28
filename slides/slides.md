@@ -64,9 +64,9 @@ Brian Cavalier
 
 ## The required, slightly boring, yet surprisingly illustrative examples
 
-* [Logging](examples/logging.js)
-* [Profiling](examples/around.js)
-* [Memoization](examples/around.js)
+* [Logging](../examples/logging.js)
+* [Profiling](../examples/around.js)
+* [Memoization](../examples/around.js)
 
 ---
 
@@ -114,9 +114,9 @@ Brian Cavalier
 
 ## Let's build it
 
-* [Hardcoded](demo-app) - [code](demo-app/vanilla)
-* [Events](demo-app/#events) - [code](demo-app/events)
-* [Pubsub](demo-app/#pubsub) - [code](demo-app/pubsub)
+* [Hardcoded](../demo-app) - [code](demo-app/vanilla)
+* [Events](../demo-app/#events) - [code](demo-app/events)
+* [Pubsub](../demo-app/#pubsub) - [code](demo-app/pubsub)
 
 ---
 
@@ -128,13 +128,17 @@ Brian Cavalier
 
 ---
 
+![Mess](img/mess.png)
+
+---
+
 # Bad
 
 ## Components are either coupled directly to each other, or directly to a connection lib API
 
 * Lots of mocking to unit test
-* Components can easily break one another
-* Adding a new component means changing the source code of existing components
+* Components easily break one another
+* Adding new components &rarr; changing source code of existing components
 * Changing one component may require
 	* updating many mocks
 	* re-unit testing all components!
@@ -155,8 +159,8 @@ Brian Cavalier
 
 ## Let's re-make it using AOP and composition
 
-* [Simple AOP](demo-app/#aop-simple) - [code](demo-app/aop-simple)
-* [meld.js AOP](demo-app/#aop-meld) - [code](demo-app/aop-meld)
+* [Simple AOP](../demo-app/#aop-simple) - [code](demo-app/aop-simple)
+* [meld.js AOP](../demo-app/#aop-meld) - [code](demo-app/aop-meld)
 
 ---
 
@@ -164,12 +168,25 @@ Brian Cavalier
 
 * Components have no knowledge of each other
 	* unit tests are easy, less mocking
-* Can change the plan without changing the components' source
-	* don't need to re-run unit test
-* Can add new behavior to existing applications
+* Change the plan w/o changing the components' source
+	* no need to re-run unit tests
+* Add new behavior to existing applications
 	* minimize regressions
-* Can create a new plan (i.e. application variant) without changing source
+* Create a new plan (i.e. app variant) easily
 	* build faster
+
+---
+
+# Testing
+
+## What about testing the *composition*?
+
+* We already do this anyway!
+	* Functional testing, e.g. Selenium etc.
+* Not a complete solution
+	* Sometimes a composition represents *only part* of an application.
+	* Need test harnesses for this.
+	* You'd need them no matter what
 
 ---
 
@@ -183,11 +200,24 @@ Brian Cavalier
 
 ## Here's our simple app again
 
-* [cujoJS 1](demo-app/#cujojs-1) (still has a Controller) - [code](demo-app/cujojs-1)
-* [cujoJS 2](demo-app/#cujojs-2) (Controller-less) - [code](demo-app/cujojs-2)
+* [cujoJS 1](../demo-app/#cujojs-1) (still has a Controller) - [code](demo-app/cujojs-1)
+* [cujoJS 2](../demo-app/#cujojs-2) (Controller-less) - [code](demo-app/cujojs-2)
 
 ---
 
-# TODO
+# AOP
 
-* Need wrap-up slides
+* Add/modify behavior
+* Compose components
+* Controlled, non-invasive
+* Don't need a lib, but they help!
+
+---
+
+# App Composition
+
+* Separate connection from components
+* Make a Composition plan
+* Test & refactor components easily
+* Reduce collateral damage
+* Build faster
