@@ -11,12 +11,16 @@ define(function(require) {
 	aop = require('aop');
 	productData = require('data/products');
 
+	// Create models for the products and cart
 	products = new Products(productData);
 	cart = new Cart();
+
+	// Create controller and views
 	controller = new Controller();
 	productListView = new ProductListView(document.getElementById('product-list'));
 	cartView = new CartView(document.getElementById('cart'));
 
+	// Use our simple AOP lib to bind the components together externally
 	controller.addItemToCart = aop.afterReturning(
 		controller.addItemToCart,
 		function(promise) {
@@ -31,6 +35,7 @@ define(function(require) {
 		cartView.removeItemById,
 		controller.removeItemFromCart.bind(controller));
 
+	// Give out minimal references to models only
 	controller.init(cart);
 	cartView.init();
 	productListView.init(products);
