@@ -1,4 +1,7 @@
 define({
+	// Create a controller, productListView, and cartView
+	// using declarative AOP to compose them together
+
 	controller: {
 		create: '../aop-simple/Controller',
 		ready: {
@@ -30,6 +33,8 @@ define({
 		},
 		ready: 'init'
 	},
+
+	// Create the products and cart models
 
 	products: {
 		create: { module: 'model/Products',

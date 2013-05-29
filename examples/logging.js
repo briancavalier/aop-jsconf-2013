@@ -120,6 +120,7 @@ var tmpDoStuff1 = thing.doStuff;
 thing.doStuff = function(x) {
 	var result = tmpDoStuff1.call(this, x);
 	console.log('returned', result);
+	return result;
 };
 
 thing.doStuff(1);
@@ -170,7 +171,10 @@ aop = require('../src/aop-simple');
 
 thing = new Thing();
 
-thing.doStuff = aop.before(thing.doStuff, console.log.bind(console, 'called with'));
+thing.doStuff = aop.before(thing.doStuff, function(x) {
+	console.log('called with', x);
+});
+
 result = thing.doStuff(1);
 
 // ===================================================================
@@ -187,7 +191,10 @@ section([
 	'Let\'s log the return value, too'
 ]);
 
-thing.doStuff = aop.afterReturning(thing.doStuff, console.log.bind(console, 'returned'));
+thing.doStuff = aop.afterReturning(thing.doStuff, function(result) {
+	console.log('returned', result);
+});
+
 result = thing.doStuff(1);
 
 // ===================================================================
@@ -204,7 +211,10 @@ section([
 	'We can use afterThrowing advice to log those, as well.'
 ]);
 
-thing.doStuff = aop.afterThrowing(thing.doStuff, console.log.bind(console, 'threw'));
+thing.doStuff = aop.afterThrowing(thing.doStuff, function(e) {
+	console.log('threw', e);
+});
+
 try {
 	result = thing.doStuff(-1);
 } catch(e) { /* let's just keep node from crashing, shall we? */}

@@ -1,11 +1,9 @@
 # Connecting your shiz.js with AOP
 
-Brian Cavalier
+## Brian Cavalier [@briancavalier](http://twitter.com/briancavalier)
 
-[cujoJS](http://cujojs.com) co-lead & Spring Javascript @ Pivotal
-
-[@briancavalier](http://twitter.com/briancavalier)
-[blog](http://blog.briancavalier.com)
+* [cujoJS](http://cujojs.com) co-lead & Spring Javascript @ Pivotal
+* http://github.com/briancavalier/aop-jsconf-2013
 
 ---
 
@@ -21,7 +19,7 @@ Brian Cavalier
 
 ## Aspect Oriented Programming
 
-Awesome, you came to JSConf to learn more TLAs
+## Coz you came to JSConf to learn more TLAs
 
 ---
 
@@ -54,11 +52,29 @@ Awesome, you came to JSConf to learn more TLAs
 
 # AOP
 
+## Guess what? It's easy in JS
+
+```js
+var orig = thing.method;
+
+thing.method = function() {
+	doAdditionalStuff();
+	return orig.apply(thing, arguments);
+}
+```
+
+---
+
+# AOP
+
+## Guess what? It's easy in JS
+
+* [AOP in 50 LOC](../src/aop-simple.js)
 * [cujoJS](http://cujojs.com) - [meld](https://github.com/cujojs/meld)
 * [Dojo](http://dojotoolkit.org) - dojo/aspect
 * [Flight](http://twitter.github.io/flight/) - flight/advice
+* [Hooker](https://github.com/cowboy/javascript-hooker)
 * [dcl](https://github.com/uhop/dcl)
-* Exists in many other languages/platforms as well, e.g. Spring AOP, AspectJ
 
 ---
 
@@ -234,24 +250,22 @@ Awesome, you came to JSConf to learn more TLAs
 
 ## AOP
 
-* Wikipedia
-* meld.js docs
-* Spring AOP or AspectJ
+* [AOP @ Wikipedia](http://en.wikipedia.org/wiki/Aspect-oriented_programming)
+* [meld.js docs](https://github.com/cujojs/meld/blob/master/docs/TOC.md)
+* [Spring AOP](http://static.springsource.org/spring/docs/2.5.5/reference/aop.html)
 
 ## AOP libs
 
 * [cujoJS](http://cujojs.com) - [meld](https://github.com/cujojs/meld)
 * [Dojo](http://dojotoolkit.org) - dojo/aspect
 * [Flight](http://twitter.github.io/flight/) - flight/advice
+* [Hooker](https://github.com/cowboy/javascript-hooker)
 * [dcl](https://github.com/uhop/dcl)
 
 ## Application Composition
 
-* Wikipedia
-* wire.js
-* Several other JS IOC containers popping up
-* YAAP
-* AngularJS?
+* [cujoJS wire.js](http://github.com/cujojs/wire)
+* Other JS IOC containers popping up recently
 
 ## Example Apps
 
