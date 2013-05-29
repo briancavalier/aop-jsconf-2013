@@ -1,8 +1,6 @@
 (function(define) {
 define(function(require) {
 
-	var delay = require('when/delay');
-
 	/**
 	 * Add a class to a node immediately, and then remove it
 	 * later when the promise resolved (regardless of whether it
@@ -11,8 +9,9 @@ define(function(require) {
 	return function(className, time, node) {
 		return function(result) {
 			node.classList.add(className);
-			delay(time, className)
-				.then(node.classList.remove.bind(node.classList));
+			setTimeout(function() {
+				node.classList.remove(className);
+			}, time);
 		};
 	}
 

@@ -30,7 +30,7 @@ define({
 	},
 
 	itemAddedAdvice: {
-		create: { module: './afterPromiseClass',
+		create: { module: './afterDelayedClass',
 			args: ['item-added', 2000, { $ref: 'dom.first!body' } ]
 		}
 	},
@@ -42,13 +42,13 @@ define({
 	},
 
 	cart: {
-		create: 'model/Cart'//,
-//		around: {
-//			'addItem': 'addingItemAdvice'
-//		},
-//		afterFulfilling: {
-//			'addItem': 'itemAddedAdvice'
-//		}
+		create: 'model/Cart',
+		around: {
+			'addItem': 'addingItemAdvice'
+		},
+		afterFulfilling: {
+			'addItem': 'itemAddedAdvice'
+		}
 	},
 
 	$plugins: [{ module: 'wire/dom' }, { module: 'wire/aop' }]
