@@ -114,9 +114,9 @@ Brian Cavalier
 
 ## Let's build it
 
-* [Hardcoded](../demo-app) - [code](demo-app/vanilla)
-* [Events](../demo-app/#events) - [code](demo-app/events)
-* [Pubsub](../demo-app/#pubsub) - [code](demo-app/pubsub)
+* [Hardcoded](../demo-app) - [code](../demo-app/vanilla)
+* [Events](../demo-app/#events) - [code](../demo-app/events)
+* [Pubsub](../demo-app/#pubsub) - [code](../demo-app/pubsub)
 
 ---
 
@@ -159,8 +159,8 @@ Brian Cavalier
 
 ## Let's re-make it using AOP and composition
 
-* [Simple AOP](../demo-app/#aop-simple) - [code](demo-app/aop-simple)
-* [meld.js AOP](../demo-app/#aop-meld) - [code](demo-app/aop-meld)
+* [Simple AOP](../demo-app/#aop-simple) - [code](../demo-app/aop-simple)
+* [meld.js AOP](../demo-app/#aop-meld) - [code](../demo-app/aop-meld)
 
 ---
 
