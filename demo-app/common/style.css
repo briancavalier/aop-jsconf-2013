@@ -31,30 +31,39 @@ a:active {
 body {
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 20px;
   color: #333333;
   background-color: #ffffff;
 }
 
+h1 {
+  font-size: 4em;
+  line-height: 1;
+}
+
+h2 {
+  font-size: 2em;
+  line-height: 1;
+}
+
 #main {
     margin: 0 auto;
-    width: 80%;
+    width: 95%;
 }
 
 .product-container {
     float: left;
-    width: 60%;
-    max-width: 600px;
+    width: 70%;
+    min-width: 200px;
 }
 
 .cart-container {
     float: left;
-    font-size: .8em;
     height: 100%;
     overflow: hidden;
-    max-width: 500px;
-    width: 30%;
+    min-width: 200px;
+    width: 20%;
 }
 
 #cart {
@@ -76,25 +85,51 @@ body {
     margin: .5em;
     padding: 1em;
     vertical-align: top;
-    width: 150px;
+    width: 28%;
+    min-width: 150px;
 }
 
 .product-list-item span {
     display: block;
 }
 
+.product-list-item .name {
+  font-weight: bold;
+}
+
 .messages-container {
     clear: both;
+    height: 2em;
+    overflow: hidden;
+    position: relative;
     text-align: center;
+    width: 100%;
 }
 
 .message {
     opacity: 0;
-    transition: opacity .5s ease;
-    -webkit-transition: opacity .5s ease;
-    -moz-transition: opacity .5s ease;
+    position: absolute;
+    top: 0;
+    transition: opacity 1s ease, margin-top .5s ease;
+    -webkit-transition: opacity 1s ease, margin-top .5s ease;
+    -moz-transition: opacity 1s ease, margin-top .5s ease;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: bold;
+    margin-left: 25%;
+    margin-top: -4em;
+    padding: .25em 0;
+    width: 50%;
 }
 
 .adding-to-cart .message.adding {
+    background: #39f;
+    margin-top: 0;
+    opacity: 1;
+}
+
+.item-added .message.added {
+    background: #3c3;
+    margin-top: 0;
     opacity: 1;
 }

@@ -1,7 +1,7 @@
 (function(define) {
 define(function(require) {
 
-	var fn = require('when/function');
+	var whilePromiseClass = require('./whilePromiseClass');
 
 	/**
 	 * Around advice for meld.js that adds a class to a node
@@ -10,12 +10,9 @@ define(function(require) {
 	 * reused wherever you need it rather than hardcoding it into
 	 * every view component.
 	 */
-	return function createBusyClassAdvice(className, node) {
+	return function createWhilePromiseClassAdvice(className, node) {
 		return function(joinpoint) {
-			node.classList.add(className);
-			return fn.call(joinpoint.proceed).ensure(function() {
-				node.classList.remove(className);
-			});
+			return whilePromiseClass(className, node, joinpoint.proceed());
 		};
 	};
 
