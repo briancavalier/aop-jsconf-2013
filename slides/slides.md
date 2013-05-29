@@ -13,6 +13,7 @@ Brian Cavalier
 
 * AOP
 * Application Composition
+	* aka Connecting your shiz.js
 
 ---
 
@@ -20,13 +21,14 @@ Brian Cavalier
 
 ## Aspect Oriented Programming
 
+Awesome, you came to JSConf to learn more TLAs
+
 ---
 
 # AOP
 
 * *What* Oriented Programming?
 * What's an aspect?
-* Awesome, I came to JSConf to learn more TLAs
 
 ---
 
@@ -37,9 +39,9 @@ Brian Cavalier
 
 ---
 
-# Um
+# Ummm
 
-## Where I come from, we call that *programming*
+## Sounds fancy, but where I come from, we just call that *programming*
 
 ---
 
@@ -66,19 +68,19 @@ Brian Cavalier
 
 * [Logging](../examples/logging.js)
 * [Profiling](../examples/around.js)
-* [Memoization](../examples/around.js)
+* [Memoization](../examples/around.js#L170)
 
 ---
 
 # Neato, but yawn
 
-## Users don't actually care about logging, so if that's all we could do, this would lame
+## Users don't actually care about logging, so if that's all we could do, this would be *lame*
 
 ---
 
-# What if
+# Can we
 
-## we could use this kind of approach to connect more interesting things together?
+## use this kind of approach to connect more interesting things together?
 
 * Views
 * Controllers
@@ -134,7 +136,11 @@ Brian Cavalier
 
 # Bad
 
-## Components are either coupled directly to each other, or directly to a connection lib API
+## Components coupled directly to each other, or directly to a connection lib API
+
+---
+
+# Bad
 
 * Lots of mocking to unit test
 * Components easily break one another
@@ -147,7 +153,7 @@ Brian Cavalier
 
 # Composition plan
 
-## A dedicated place to do application composition
+## A *dedicated place* to compose application components
 
 ---
 
@@ -164,7 +170,7 @@ Brian Cavalier
 
 ---
 
-# So what?
+# Good
 
 * Components have no knowledge of each other
 	* unit tests are easy, less mocking
@@ -184,24 +190,24 @@ Brian Cavalier
 * We already do this anyway!
 	* Functional testing, e.g. Selenium etc.
 * Not a complete solution
-	* Sometimes a composition represents *only part* of an application.
-	* Need test harnesses for this.
-	* You'd need them no matter what
+	* Sometimes a composition represents *only part* of an application
+	* Need test harnesses, but
+	* you'd need them no matter what
 
 ---
 
 # Composition
 
-## If we're always connecting components together in similar ways, couldn't we create a *DSL* to do it?
+## If we're always connecting components in similar ways, can we create a *DSL* to do it?
 
 ---
 
-# Yes
+# Yep
 
 ## Here's our simple app again
 
-* [cujoJS 1](../demo-app/#cujojs-1) (still has a Controller) - [code](demo-app/cujojs-1)
-* [cujoJS 2](../demo-app/#cujojs-2) (Controller-less) - [code](demo-app/cujojs-2)
+* [cujoJS 1](../demo-app/#cujojs-1) (w/Controller) - [code](../demo-app/cujojs-1)
+* [cujoJS 2](../demo-app/#cujojs-2) (Controller-less) - [code](../demo-app/cujojs-2)
 
 ---
 
@@ -221,3 +227,36 @@ Brian Cavalier
 * Test & refactor components easily
 * Reduce collateral damage
 * Build faster
+
+---
+
+# Links
+
+## AOP
+
+* Wikipedia
+* meld.js docs
+* Spring AOP or AspectJ
+
+## AOP libs
+
+* [cujoJS](http://cujojs.com) - [meld](https://github.com/cujojs/meld)
+* [Dojo](http://dojotoolkit.org) - dojo/aspect
+* [Flight](http://twitter.github.io/flight/) - flight/advice
+* [dcl](https://github.com/uhop/dcl)
+
+## Application Composition
+
+* Wikipedia
+* wire.js
+* Several other JS IOC containers popping up
+* YAAP
+* AngularJS?
+
+## Example Apps
+
+* [Examples from this talk](../demo-app)
+* [cujoJS.com](http://cujojs.com)
+* [cujoJS sample apps](http://know.cujojs.com/samples)
+
+

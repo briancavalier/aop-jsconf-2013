@@ -24,8 +24,14 @@ define({
 	},
 
 	addingItemAdvice: {
-		create: { module: './busyClassAdvice',
+		create: { module: './whilePromiseClassAdvice',
 			args: ['adding-to-cart', { $ref: 'dom.first!body' } ]
+		}
+	},
+
+	itemAddedAdvice: {
+		create: { module: './afterPromiseClass',
+			args: ['item-added', 2000, { $ref: 'dom.first!body' } ]
 		}
 	},
 
@@ -36,10 +42,13 @@ define({
 	},
 
 	cart: {
-		create: 'model/Cart',
-		around: {
-			'addItem': 'addingItemAdvice'
-		},
+		create: 'model/Cart'//,
+//		around: {
+//			'addItem': 'addingItemAdvice'
+//		},
+//		afterFulfilling: {
+//			'addItem': 'itemAddedAdvice'
+//		}
 	},
 
 	$plugins: [{ module: 'wire/dom' }, { module: 'wire/aop' }]

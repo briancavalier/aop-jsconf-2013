@@ -69,6 +69,11 @@ footer p {
 	margin-bottom: .75em;
 }
 
+.slide li > ul {
+	font-size: 0.9em;
+	margin-top: .5em;
+}
+
 .slide img {
 	display: block;
 	margin: 0 auto;
