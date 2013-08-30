@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "dependencies": {
     "curl": "~0.7",
-    "when": "~2.1",
+    "when": "~2",
     "meld": "~1",
-    "wire": "~0.9.4",
+    "wire": "~0.10",
     "marked": "~0.2",
     "highlightjs": "~7"
   }
